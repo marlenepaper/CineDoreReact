@@ -6,4 +6,6 @@ export const AppColors = {
     tertiary : "#001935",
     white  : "#FFFFFF",
     black  : "#000000",
+    bg_input_dark: "#020C21",
+    bg_input: "#02316C"
 }

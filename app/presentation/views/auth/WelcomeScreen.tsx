@@ -117,14 +117,14 @@ const stylesWelcome = StyleSheet.create({
         marginHorizontal:36
     },
     createAccountLinearGradient:{
-        padding: 2,
+        padding: 1,
         borderRadius: 10,
         marginTop: 16,
-        height: 46,
+        height: 49,
     },
     createAccountButtonContainer:{
         backgroundColor: AppColors.tertiary_dark, //cambiar
-        borderRadius: 10,
+        borderRadius: 9,
         paddingVertical: 12,
         paddingHorizontal: 30,
         alignItems: "center",

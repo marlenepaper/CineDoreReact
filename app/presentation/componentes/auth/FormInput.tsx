@@ -13,7 +13,7 @@ interface IFormInputProps{
 export const AuthFormInput =({label, keyboardType, secureTextEntry, onPressFromInterface}: IFormInputProps) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
     return (
-        <View style={stylesAuthFormInput.mainContainer}>
+        <View>
             <Text style={stylesAuthFormInput.labelText}>{label}</Text>
             <LinearGradient colors={[AppColors.secondary, AppColors.secondary_dark]}
                                                          start={{ x: 0, y: 0 }}
@@ -22,7 +22,7 @@ export const AuthFormInput =({label, keyboardType, secureTextEntry, onPressFromI
                 <View style={stylesAuthFormInput.inputContainer}>
                     <TextInput style={stylesAuthFormInput.textInput}
                                keyboardType={keyboardType}
-                               secureTextEntry={secureTextEntry? !isPasswordVisible: isPasswordVisible}
+                               secureTextEntry={secureTextEntry && !isPasswordVisible}
                                onChangeText={(text) => onPressFromInterface(text)}/>
                     {secureTextEntry ?
                         <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}>
@@ -42,9 +42,6 @@ export const AuthFormInput =({label, keyboardType, secureTextEntry, onPressFromI
 }
 
 const stylesAuthFormInput = StyleSheet.create({
-    mainContainer:{
-      marginBottom: 38
-    },
     labelText:{
         color:AppColors.white,
         fontSize:16,
@@ -57,7 +54,7 @@ const stylesAuthFormInput = StyleSheet.create({
         marginBottom:31,
     },
     inputContainer:{
-        backgroundColor: AppColors.tertiary,
+        backgroundColor: AppColors.bg_input_dark ,
         borderRadius: 9,
         alignItems: "center",
         color: AppColors.white,
@@ -67,7 +64,8 @@ const stylesAuthFormInput = StyleSheet.create({
         flexDirection: "row",
     },
     textInput:{
-        paddingHorizontal: 15,
+        flex: 1,
+        paddingLeft: 16,
         color: AppColors.white,
     },
     eyeIcon:{
