@@ -1,8 +1,8 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
-import LoginScreen from "./app/presentation/views/auth/LoginScreen";
+import LoginScreen from "./app/presentation/views/auth/login/LoginScreen";
 import WelcomeScreen from "./app/presentation/views/auth/WelcomeScreen";
-import RegisterScreen from "./app/presentation/views/auth/RegisterScreen";
+import RegisterScreen from "./app/presentation/views/auth/register/RegisterScreen";
 import SplashScreen from "./app/presentation/views/auth/SplashScreen";
 
 export type RootStackParamList ={
