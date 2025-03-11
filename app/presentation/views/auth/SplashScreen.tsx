@@ -1,5 +1,5 @@
 import {ImageBackground, StyleSheet} from "react-native";
-import Logo from "../../../../assets/icons/logo.svg"
+import LogoCompleto from "../../../../assets/icons/logo_completo.svg"
 import Logos from "../../../../assets/icons/logos.svg"
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {useEffect} from "react";
@@ -12,10 +12,10 @@ function SplashScreen({navigation}:PropsStackNavigation) {
         return () => {clearTimeout(timer)}
     }, []);
     return(
-            <ImageBackground source={require("../../../../assets/backgrounds/bg_auth.png")}
+            <ImageBackground source={require("../../../../assets/backgrounds/bg_splash.png")}
                              style={stylesSplash.bgContainer}
                              resizeMode={"cover"}>
-            <Logo style={stylesSplash.mainLogo}/>
+            <LogoCompleto style={stylesSplash.mainLogo}/>
             <Logos style={stylesSplash.otherLogos}/>
             </ImageBackground>
     )
