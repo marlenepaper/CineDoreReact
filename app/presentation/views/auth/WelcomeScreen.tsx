@@ -1,9 +1,10 @@
-import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import Logo from "../../../../assets/icons/logo.svg"
 import {AuthButton} from "../../componentes/auth/AuthButton";
 import {LinearGradient} from "expo-linear-gradient";
 import {AppColors} from "../../theme/AppTheme";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
+import {AuthButtonUnfilled} from "../../componentes/auth/AuthButtonUnfilled";
 
 function WelcomeScreen({navigation}:PropsStackNavigation) {
     return(
@@ -31,17 +32,8 @@ function WelcomeScreen({navigation}:PropsStackNavigation) {
                     <View style={stylesWelcome.btnContainer}>
                         <AuthButton textButton={"Inicia sesión"}
                                     onPressFromInterface={() =>{navigation.navigate("LoginScreen")}}/>
-                        <View>
-                            <LinearGradient colors={[AppColors.secondary, AppColors.secondary_dark]}
-                                            start={{ x: 0, y: 0 }}
-                                            end={{ x: 1, y: 1 }}
-                                            style={stylesWelcome.createAccountLinearGradient} >
-                                <TouchableOpacity style={stylesWelcome.createAccountButtonContainer}
-                                                  onPress={() => {navigation.navigate("RegisterScreen")}}>
-                                    <Text style={stylesWelcome.createAccountText}>Crea tu cuenta</Text>
-                                </TouchableOpacity>
-                            </LinearGradient>
-                        </View>
+                        <AuthButtonUnfilled textButton={"Crea tu cuenta"}
+                                            onPressFromInterface={() => navigation.navigate("RegisterScreen")}/>
 
 
                     </View>
