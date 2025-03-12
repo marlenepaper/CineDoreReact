@@ -6,10 +6,18 @@ import BackArrow from "../../../../../assets/icons/chevron-left.svg";
 import {MovieData} from "../../../componentes/movies/MovieData";
 import {ScheduleData} from "../../../componentes/movies/ScheduleData";
 import stylesMovieDetails from "./StyleMovieDetails";
+import {MovieDataInterface} from "../../../interfaces/MoviesInterface";
 
 function MovieDetailsScreen(){
     const [chosen, setChosen] = useState(true)
-
+    const movie : MovieDataInterface = {
+        age:18,
+        name:"La Dolce Vita",
+        duration: "1h 14m",
+        year: "1960",
+        category: "Drama",
+        version: "VOSE"
+    }
     return(
         <View style={stylesMovieDetails.mainContainer}>
             <ImageBackground source={require("../../../../../assets/images/img_pelicula.png")}
@@ -71,9 +79,7 @@ function MovieDetailsScreen(){
                 <View style={{ position: "relative", height: 200 }}>
                     <View style={{ position: "absolute", top: 0, left: 0, right: 0, opacity: chosen ? 1 : 0 }}>
                         <View style={stylesMovieDetails.movieDetailsAll}>
-                            <MovieData age={18} name={"La Dolce Vita"}
-                                       category={"Drama"} year={"1960"}
-                                       duration={"1h 14 m"} version={"VOSE"}/>
+                            <MovieData movie={movie}/>
                             <View style={stylesMovieDetails.scheduleContainer}>
                                 <ScheduleData date={"2025-01-15"} time={"17:00"} onPressFromInterface={() =>{}}/>
                                 <ScheduleData date={"2025-01-16"} time={"18:00"} onPressFromInterface={() => {}}/>
@@ -84,9 +90,7 @@ function MovieDetailsScreen(){
 
                     <View style={{ position: "absolute", top: 0, left: 0, right: 0, opacity: chosen ? 0 : 1}}>
                         <View style={stylesMovieDetails.movieDetailsAll}>
-                            <MovieData age={18} name={"La Dolce Vita"}
-                                       category={"Drama"} year={"1960"}
-                                       duration={"1h 14 m"} version={"VOSE"}/>
+                            <MovieData movie={movie}/>
 
                             <Text style={{...stylesMovieDetails.formatText, marginTop:25}}>Formato:</Text>
                             <View style={stylesMovieDetails.formatContainer}>

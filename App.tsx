@@ -8,13 +8,15 @@ import MovieDetailsScreen from "./app/presentation/views/purchase/selectedMovie/
 import {useFonts} from "expo-font";
 import {ActivityIndicator} from "react-native";
 import {AppColors} from "./app/presentation/theme/AppTheme";
+import TicketSelection from "./app/presentation/views/purchase/ticketSelection/TicketSelection";
 
 export type RootStackParamList ={
   LoginScreen: undefined,
   RegisterScreen: undefined,
   SplashScreen: undefined,
   WelcomeScreen: undefined,
-  MovieDetailsScreen: undefined
+  MovieDetailsScreen: undefined,
+    TicketSelectionScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,6 +34,7 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name={"TicketSelectionScreen"} component={TicketSelection}></Stack.Screen>
                     <Stack.Screen name={"MovieDetailsScreen"} component={MovieDetailsScreen}></Stack.Screen>
                     <Stack.Screen name={"SplashScreen"} component={SplashScreen}></Stack.Screen>
                     <Stack.Screen name={"LoginScreen"} component={LoginScreen}></Stack.Screen>

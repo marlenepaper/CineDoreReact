@@ -11,19 +11,13 @@ export const ScheduleData= ({date, time, onPressFromInterface}:IScheduleDataProp
 
     const newDate = new Date(date);
 
-    let formattedDate =  new Intl.DateTimeFormat("es-ES", {
+    let formattedDate = new Intl.DateTimeFormat("es-ES", {
         weekday: "long",
         day: "numeric",
         month: "long",
     }).format(newDate).replace(",", "");
-    const capitalizeFirstLetter = (text: string) => {
-        return text
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    };
 
-    formattedDate = capitalizeFirstLetter(formattedDate);
+    formattedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1).toLowerCase();
 
     return(
         <TouchableOpacity style={stylesScheduleData.mainContainer}

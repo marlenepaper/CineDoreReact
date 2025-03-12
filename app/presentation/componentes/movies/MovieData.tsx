@@ -2,40 +2,35 @@ import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import Line from "../../../../assets/icons/line.svg";
 import Clock from "../../../../assets/icons/clock.svg";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
+import {MovieDataInterface} from "../../interfaces/MoviesInterface";
 
 interface IMovieDataProps{
-    age: number;
-    name: string;
-    category: string;
-    year: string;
-    duration: string,
-    version: string,
+    movie: MovieDataInterface;
 }
-
-export const MovieData = ({age, name, category, year, duration, version}: IMovieDataProps) =>{
+export const MovieData = ({movie}: IMovieDataProps) =>{
     return(
             <View style={stylesMovieData.movieDetails}>
                 <View style={stylesMovieData.ageContainer}>
                     <ImageBackground source={require("../../../../assets/images/borde_degradado.png")}
                                      resizeMode={"stretch"}
                                      style={stylesMovieData.ageBackground}>
-                        <Text style={stylesMovieData.ageText}>{age}</Text>
+                        <Text style={stylesMovieData.ageText}>{movie.age}</Text>
                     </ImageBackground>
                 </View>
 
                 <View style={stylesMovieData.nameTypeContainer}>
-                    <Text style={stylesMovieData.filmNameText}>{name}</Text>
+                    <Text style={stylesMovieData.filmNameText}>{movie.name}</Text>
                     <View style={stylesMovieData.typeYearContainer}>
-                        <Text style={{...stylesMovieData.filmTypeText, paddingRight: 12}}>{category}</Text>
+                        <Text style={{...stylesMovieData.filmTypeText, paddingRight: 12}}>{movie.category}</Text>
                         <Line style={{marginTop: 3}}/>
-                        <Text style={{...stylesMovieData.filmTypeText, paddingLeft: 12}}>{year}</Text>
+                        <Text style={{...stylesMovieData.filmTypeText, paddingLeft: 12}}>{movie.year}</Text>
                     </View>
                 </View>
 
                 <View style={stylesMovieData.durationVersionContainer}>
                     <Clock/>
-                    <Text style={{...stylesMovieData.filmTypeText, paddingHorizontal:5}}>{duration}</Text>
-                    <Text style={stylesMovieData.versionText}>{version}</Text>
+                    <Text style={{...stylesMovieData.filmTypeText, paddingHorizontal:5}}>{movie.duration}</Text>
+                    <Text style={stylesMovieData.versionText}>{movie.version}</Text>
                 </View>
             </View>
 
