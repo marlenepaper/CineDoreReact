@@ -1,5 +1,5 @@
 import {KeyboardType, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {LinearGradient} from "expo-linear-gradient";
 import {useState} from "react";
 
@@ -45,8 +45,8 @@ const stylesAuthFormInput = StyleSheet.create({
     labelText:{
         color:AppColors.white,
         fontSize:16,
-        fontWeight:'bold',
-        marginBottom: 5
+        marginBottom: 5,
+        fontFamily: AppFonts.bold,
     },
     borderGradient:{
         padding: 1,

@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
 interface IAuthFormButtonUnfilledProps {
     textButton: string,
@@ -35,8 +35,8 @@ const stylesAuthButtonUnfilled = StyleSheet.create({
     createAccountText:{
         color: AppColors.white,
         fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: AppFonts.bold,
     },
     createAccountLinearGradient:{
         padding: 1,

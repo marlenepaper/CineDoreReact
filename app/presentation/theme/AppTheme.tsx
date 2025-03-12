@@ -10,3 +10,9 @@ export const AppColors = {
     bg_input_dark: "#020C21",
     bg_input: "#02316C"
 }
+
+export const AppFonts = {
+    bold: "Inter-Bold",
+    medium: "Inter-Medium",
+    regular: "Inter-Regular",
+}

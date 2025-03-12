@@ -2,7 +2,7 @@ import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import Logo from "../../../../assets/icons/logo.svg"
 import {AuthButton} from "../../componentes/auth/AuthButton";
 import {LinearGradient} from "expo-linear-gradient";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {AuthButtonUnfilled} from "../../componentes/auth/AuthButtonUnfilled";
 
@@ -70,7 +70,7 @@ const stylesWelcome = StyleSheet.create({
     infoContainer:{
         position: "absolute",
         width: "100%",
-        bottom: "6%",
+        bottom: "5%",
         display: "flex",
         alignSelf: "center",
     },
@@ -87,7 +87,7 @@ const stylesWelcome = StyleSheet.create({
         color:"white",
         width:"60%",
         textAlign:"center",
-        fontWeight:"bold",
+        fontFamily: AppFonts.bold
     },
     descTextContainer:{
         width:"100%",
@@ -99,7 +99,8 @@ const stylesWelcome = StyleSheet.create({
         fontSize: 18,
         color:"white",
         textAlign:"center",
-        paddingHorizontal: 26
+        paddingHorizontal: 26,
+        fontFamily: AppFonts.regular
     },
     btnContainer:{
         marginTop: 61,
@@ -137,8 +138,8 @@ const stylesWelcome = StyleSheet.create({
         fontSize: 14,
         textDecorationLine: "underline",
         color: AppColors.white,
-        fontWeight: 'bold',
-        marginTop: 69
+        marginTop: 69,
+        fontFamily: AppFonts.bold
     }
 })
 

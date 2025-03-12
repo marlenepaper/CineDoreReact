@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {AppColors} from "../../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../../theme/AppTheme";
 
 const stylesLogin = StyleSheet.create({
     mainContainer: {
@@ -50,6 +50,7 @@ const stylesLogin = StyleSheet.create({
     registerText: {
         fontSize: 16,
         color: AppColors.white,
+        fontFamily: AppFonts.regular,
     },
     registerLink: {
         fontSize: 16,
