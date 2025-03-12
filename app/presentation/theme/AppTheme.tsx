@@ -8,7 +8,8 @@ export const AppColors = {
     white  : "#FFFFFF",
     black  : "#000000",
     bg_input_dark: "#020C21",
-    bg_input: "#02316C"
+    bg_input: "#02316C",
+    border_light: "#FFFEFE1A"
 }
 
 export const AppFonts = {

@@ -16,7 +16,7 @@ export const AuthButtonUnfilled = ({ textButton, onPressFromInterface }: IAuthFo
                             style={stylesAuthButtonUnfilled.createAccountLinearGradient} >
                 <TouchableOpacity style={stylesAuthButtonUnfilled.createAccountButtonContainer}
                                   onPress={() => onPressFromInterface()}>
-                    <Text style={stylesAuthButtonUnfilled.createAccountText}>Crea tu cuenta</Text>
+                    <Text style={stylesAuthButtonUnfilled.createAccountText}>{textButton}</Text>
                 </TouchableOpacity>
             </LinearGradient>
         </View>
