@@ -78,7 +78,7 @@ const stylesWelcome = StyleSheet.create({
     infoContainer:{
         position: "absolute",
         width: "100%",
-        bottom: "7%",
+        bottom: "6%",
         display: "flex",
         alignSelf: "center",
     },

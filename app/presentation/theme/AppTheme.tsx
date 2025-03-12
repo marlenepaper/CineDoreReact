@@ -3,6 +3,7 @@ export const AppColors = {
     secondary: "#4FD0EC",
     secondary_dark : "#3250C9",
     tertiary_dark: "#000717",
+    prueba_claro: "#051434",
     tertiary : "#001935",
     white  : "#FFFFFF",
     black  : "#000000",

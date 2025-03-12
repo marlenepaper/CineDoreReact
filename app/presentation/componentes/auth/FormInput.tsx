@@ -69,8 +69,8 @@ const stylesAuthFormInput = StyleSheet.create({
         color: AppColors.white,
     },
     eyeIcon:{
-        width:30,
-        height:30,
+        width:24,
+        height:24,
         marginRight: 16,
     }
 

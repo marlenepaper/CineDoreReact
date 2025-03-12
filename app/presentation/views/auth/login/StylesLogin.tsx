@@ -6,6 +6,19 @@ const stylesLogin = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
+        backgroundColor: AppColors.bg_input_dark
+    },
+    mainGradient:{
+        flex: 1,
+        opacity: 0.3,
+        width: "100%",
+        height: '100%',
+    },
+    mainInfoContainer:{
+      width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
     },
     backArrow:{
         marginHorizontal: 33,

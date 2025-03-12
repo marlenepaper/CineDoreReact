@@ -5,15 +5,19 @@ const stylesRegister = StyleSheet.create({
     mainContainer: {
         flex: 1,
         width: '100%',
-        height: '100%',
-    },
-    imgBg:{
-        width: '100%',
-        height: '100%',
+        backgroundColor: AppColors.bg_input_dark
     },
     backArrow:{
         marginHorizontal: 33,
         marginTop: 44
+    },
+    mainGradient:{
+        ...StyleSheet.absoluteFillObject,
+        opacity: 0.3,
+    },
+    mainInfoContainer:{
+        width: '100%',
+        justifyContent: 'center',
     },
     createTextContainer: {
         marginTop: 20,
