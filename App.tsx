@@ -13,6 +13,7 @@ import TicketSelection from "./app/presentation/views/purchase/ticketSelection/T
 import UserProfileScreen from "./app/presentation/views/mainNav/userProfile/userProfile";
 import TicketListScreen from "./app/presentation/views/mainNav/ticketsList/ticketList";
 import TheatreInfoScreen from "./app/presentation/views/mainNav/theatreInfo/theatreInfo";
+import HomeScreen from "./app/presentation/views/mainNav/home/home";
 
 
 export type RootStackParamList ={
@@ -25,6 +26,7 @@ export type RootStackParamList ={
   UserProfileScreen: undefined,
   TicketListScreen: undefined,
   TheatreInfoScreen: undefined,
+  HomeScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,17 +45,16 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name={"UserProfileScreen"} component={UserProfileScreen}></Stack.Screen>
-                    <Stack.Screen name={"TicketListScreen"} component={TicketListScreen}></Stack.Screen>
+                    <Stack.Screen name={"HomeScreen"} component={HomeScreen}></Stack.Screen>
                     <Stack.Screen name={"TheatreInfoScreen"} component={TheatreInfoScreen}></Stack.Screen>
+                    <Stack.Screen name={"TicketListScreen"} component={TicketListScreen}></Stack.Screen>
+                    <Stack.Screen name={"UserProfileScreen"} component={UserProfileScreen}></Stack.Screen>
                     <Stack.Screen name={"SplashScreen"} component={SplashScreen}></Stack.Screen>
                     <Stack.Screen name={"LoginScreen"} component={LoginScreen}></Stack.Screen>
                     <Stack.Screen name={"RegisterScreen"} component={RegisterScreen}></Stack.Screen>
                     <Stack.Screen name={"WelcomeScreen"} component={WelcomeScreen}></Stack.Screen>
                     <Stack.Screen name={"MovieDetailsScreen"} component={MovieDetailsScreen}></Stack.Screen>
                     <Stack.Screen name={"TicketSelectionScreen"} component={TicketSelection}></Stack.Screen>
-
-
                 </Stack.Navigator>
             </NavigationContainer>
         );
