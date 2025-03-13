@@ -52,10 +52,7 @@ export default function App() {
                     <Stack.Screen name={"WelcomeScreen"} component={WelcomeScreen}></Stack.Screen>
                     <Stack.Screen name={"MovieDetailsScreen"} component={MovieDetailsScreen}></Stack.Screen>
                     <Stack.Screen name={"TicketSelectionScreen"} component={TicketSelection}></Stack.Screen>
-                    <Stack.Screen name={"SplashScreen"} component={SplashScreen}></Stack.Screen>
-                    <Stack.Screen name={"LoginScreen"} component={LoginScreen}></Stack.Screen>
-                    <Stack.Screen name={"RegisterScreen"} component={RegisterScreen}></Stack.Screen>
-                    <Stack.Screen name={"WelcomeScreen"} component={WelcomeScreen}></Stack.Screen>
+
 
                 </Stack.Navigator>
             </NavigationContainer>
