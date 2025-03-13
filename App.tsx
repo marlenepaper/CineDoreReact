@@ -34,8 +34,8 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name={"TicketSelectionScreen"} component={TicketSelection}></Stack.Screen>
                     <Stack.Screen name={"MovieDetailsScreen"} component={MovieDetailsScreen}></Stack.Screen>
+                    <Stack.Screen name={"TicketSelectionScreen"} component={TicketSelection}></Stack.Screen>
                     <Stack.Screen name={"SplashScreen"} component={SplashScreen}></Stack.Screen>
                     <Stack.Screen name={"LoginScreen"} component={LoginScreen}></Stack.Screen>
                     <Stack.Screen name={"RegisterScreen"} component={RegisterScreen}></Stack.Screen>
