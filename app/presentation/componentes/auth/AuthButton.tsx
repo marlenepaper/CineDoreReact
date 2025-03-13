@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import { LinearGradient } from "expo-linear-gradient"
 import {AppColors} from "../../theme/AppTheme";
 
@@ -10,7 +10,7 @@ interface IAuthFormButtonProps {
 export const AuthButton = ({ textButton, onPressFromInterface }: IAuthFormButtonProps) => {
     return (
         <View>
-        <TouchableOpacity onPress={() => onPressFromInterface()}>
+        <Pressable onPress={() => onPressFromInterface()}>
             <LinearGradient colors={[AppColors.secondary, AppColors.secondary_dark]}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
@@ -18,7 +18,7 @@ export const AuthButton = ({ textButton, onPressFromInterface }: IAuthFormButton
                 <Text style={styleAuthButton.formButtonText}>{textButton}</Text>
             </LinearGradient>
 
-            </TouchableOpacity>
+            </Pressable>
         </View>
     )
 }
