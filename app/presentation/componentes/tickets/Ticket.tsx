@@ -17,16 +17,20 @@ const TicketBox = () =>{
     return (
         <View>
             <Ticket>
-                <Image source={require("../../../../assets/images/img_pelicula.png")}></Image>
+                <Image source={require("../../../../assets/images/img_pelicula.png")} style={styles.image} />
+                <MovieBox movie={movie} />
             </Ticket>
-            <MovieBox movie={movie}></MovieBox>
             <Text>hola</Text>
         </View>
     )
 }
 
-const style = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({
+    image: {
+        width: "100%", // Ajusta según necesidad
+        height: 200,   // Ajusta según necesidad
+        resizeMode: "cover"
+    }
+});
 
 export default TicketBox;
