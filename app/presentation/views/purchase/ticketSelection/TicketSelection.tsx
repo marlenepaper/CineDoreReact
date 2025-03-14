@@ -36,7 +36,7 @@ function TicketSelectionScreen() {
                             style={stylesTicketSelection.mainGradientContainer}/>
 
             <View style={stylesTicketSelection.infoContainer}>
-                <MovieBox movie={movie}/>
+                <MovieBox movie={movie} color={AppColors.white}/>
                 <View style={stylesTicketSelection.pricesContainer}>
                 <View style={stylesTicketSelection.ticketGeneralContainer}>
                     <Text style={stylesTicketSelection.ticketTextLeft}>Entrada general</Text>

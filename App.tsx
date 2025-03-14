@@ -16,6 +16,7 @@ import TheatreInfoScreen from "./app/presentation/views/mainNav/theatreInfo/Thea
 import HomeScreen from "./app/presentation/views/mainNav/home/Home";
 import {ClientTabNavigator} from "./app/presentation/navigation/ClientTabNavigator";
 import {AdminTabNavigator} from "./app/presentation/navigation/AdminTabNavigator";
+import PurchasedTicketScreen from "./app/presentation/views/purchase/purchasedTicket/PurchasedTicket";
 
 
 export type RootStackParamList ={
@@ -29,8 +30,9 @@ export type RootStackParamList ={
   TicketListScreen: undefined,
   TheatreInfoScreen: undefined,
   HomeScreen: undefined,
-    AdminTabNavigator: undefined;
-    ClientTabNavigator: undefined;
+  AdminTabNavigator: undefined;
+  ClientTabNavigator: undefined;
+  PurchasedTicketScreen: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +51,7 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name={"PurchasedTicketScreen"} component={PurchasedTicketScreen}></Stack.Screen>
                     <Stack.Screen name={"AdminTabNavigator"} component={AdminTabNavigator} options={{title:"Navegación de administración"}}></Stack.Screen>
                     <Stack.Screen name={"ClientTabNavigator"} component={ClientTabNavigator} options={{title:"Navegación de cliente"}}></Stack.Screen>
                     <Stack.Screen name={"TheatreInfoScreen"} component={TheatreInfoScreen}></Stack.Screen>
