@@ -10,10 +10,12 @@ import {useFonts} from "expo-font";
 import {ActivityIndicator} from "react-native";
 import {AppColors} from "./app/presentation/theme/AppTheme";
 import TicketSelection from "./app/presentation/views/purchase/ticketSelection/TicketSelection";
-import UserProfileScreen from "./app/presentation/views/mainNav/userProfile/userProfile";
-import TicketListScreen from "./app/presentation/views/mainNav/ticketsList/ticketList";
-import TheatreInfoScreen from "./app/presentation/views/mainNav/theatreInfo/theatreInfo";
-import HomeScreen from "./app/presentation/views/mainNav/home/home";
+import UserProfileScreen from "./app/presentation/views/mainNav/userProfile/UserProfile";
+import TicketListScreen from "./app/presentation/views/mainNav/ticketsList/TicketList";
+import TheatreInfoScreen from "./app/presentation/views/mainNav/theatreInfo/TheatreInfo";
+import HomeScreen from "./app/presentation/views/mainNav/home/Home";
+import {ClientTabNavigator} from "./app/presentation/navigation/ClientTabNavigator";
+import {AdminTabNavigator} from "./app/presentation/navigation/AdminTabNavigator";
 
 
 export type RootStackParamList ={
@@ -27,6 +29,8 @@ export type RootStackParamList ={
   TicketListScreen: undefined,
   TheatreInfoScreen: undefined,
   HomeScreen: undefined,
+    AdminTabNavigator: undefined;
+    ClientTabNavigator: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -45,7 +49,8 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name={"HomeScreen"} component={HomeScreen}></Stack.Screen>
+                    <Stack.Screen name={"AdminTabNavigator"} component={AdminTabNavigator} options={{title:"Navegación de administración"}}></Stack.Screen>
+                    <Stack.Screen name={"ClientTabNavigator"} component={ClientTabNavigator} options={{title:"Navegación de cliente"}}></Stack.Screen>
                     <Stack.Screen name={"TheatreInfoScreen"} component={TheatreInfoScreen}></Stack.Screen>
                     <Stack.Screen name={"TicketListScreen"} component={TicketListScreen}></Stack.Screen>
                     <Stack.Screen name={"UserProfileScreen"} component={UserProfileScreen}></Stack.Screen>

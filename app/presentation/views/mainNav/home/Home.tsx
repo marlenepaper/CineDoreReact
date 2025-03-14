@@ -8,6 +8,8 @@ import LogoCinedore from "../../../../../assets/icons/logo_completo.svg";
 import LogoMinisterio from "../../../../../assets/icons/logo-ministerioCultura.svg";
 import LogoFilmoteca from "../../../../../assets/icons/logo-filmoteca.svg";
 import IconoInfo from "../../../../../assets/icons/informacion.svg";
+import TicketBox from "../../../componentes/tickets/Ticket";
+
 
 function HomeScreen({navigation}: PropsStackNavigation) {
 
@@ -42,6 +44,10 @@ function HomeScreen({navigation}: PropsStackNavigation) {
 
 
             </View>
+            <View style={styles.ticketContainer}>
+                <TicketBox/>
+            </View>
+
 
 
         </View>
@@ -85,6 +91,10 @@ const styles = StyleSheet.create({
     },
     logoMinisterio: {},
     logoFilmoteca: {},
+    ticketContainer:{
+        marginTop: 160
+    }
+
 
 
 });
