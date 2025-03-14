@@ -21,7 +21,7 @@ export const TabNavigator = () => {
                 tabBarStyle: {
                     position: 'absolute',
                     backgroundColor: 'white',
-                    height: 90,
+                    height: 70,
                     borderTopLeftRadius: 25,
                     borderTopRightRadius: 25,
                     shadowColor: "#000",
@@ -29,11 +29,13 @@ export const TabNavigator = () => {
                     shadowOpacity: 0.1,
                     shadowRadius: 4,
                     elevation: 5,
+                    marginHorizontal:13,
+                    paddingTop:6
                 },
                 tabBarLabelStyle: {
                     fontSize: 12,
                     fontWeight: '600',
-                    marginBottom: 10,
+                    marginTop:4
                 },
             }}><Tab.Screen
             name="Cartelera"
