@@ -34,7 +34,7 @@ const MovieBox = ({movie, color, fontScale = 1}: IMovieBoxProps) =>{
                 </View>
 
                 <View style={stylesMovieBox.durationVersionContainer}>
-                    <Clock />
+                    <Clock fill={color}/>
                     <Text style={{ ...stylesMovieBox.filmTypeText, fontSize: scaleFont(14), color: color }}>
                         {movie.duration}
                     </Text>
