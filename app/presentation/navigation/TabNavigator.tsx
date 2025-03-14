@@ -1,8 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { FontAwesome, Feather, Ionicons } from 'react-native-vector-icons';
 
 // Importa las pantallas desde tu estructura
 import HomeScreen from '../views/mainNav/home/Home';
