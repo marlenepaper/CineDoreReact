@@ -9,14 +9,14 @@ import UserProfileScreen from '../views/mainNav/userProfile/UserProfile';
 
 const Tab = createBottomTabNavigator();
 
-export const AdminTabNavigator = () => {
+export const TabNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{
-                    title: "Inicio",
+                    title: "Lista de categorías",
                     tabBarLabel: "Inicio",
                     tabBarIcon: ({ color }) => (
                         <Image source={require("../../../assets/icons/eye.png")}
@@ -28,20 +28,8 @@ export const AdminTabNavigator = () => {
                 name="TheatreInfo"
                 component={TheatreInfoScreen}
                 options={{
-                    title: "Cines",
-                    tabBarLabel: "Cines",
-                    tabBarIcon: ({ color }) => (
-                        <Image source={require("../../../assets/icons/eye.png")}
-                               style={{ width: 25, height: 25, tintColor: color }} />
-                    )
-                }}
-            />
-            <Tab.Screen
-                name="TicketsList"
-                component={TicketsListScreen}
-                options={{
-                    title: "Mis boletos",
-                    tabBarLabel: "Boletos",
+                    title: "Pedidos realizados",
+                    tabBarLabel: "Pedidos",
                     tabBarIcon: ({ color }) => (
                         <Image source={require("../../../assets/icons/eye.png")}
                                style={{ width: 25, height: 25, tintColor: color }} />
@@ -52,8 +40,8 @@ export const AdminTabNavigator = () => {
                 name="UserProfile"
                 component={UserProfileScreen}
                 options={{
-                    title: "Perfil",
-                    tabBarLabel: "Perfil",
+                    title: "Mi perfil",
+                    tabBarLabel: "Mi perfil",
                     tabBarIcon: ({ color }) => (
                         <Image source={require("../../../assets/icons/eye.png")}
                                style={{ width: 25, height: 25, tintColor: color }} />

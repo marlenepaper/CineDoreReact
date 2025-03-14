@@ -14,8 +14,7 @@ import UserProfileScreen from "./app/presentation/views/mainNav/userProfile/User
 import TicketListScreen from "./app/presentation/views/mainNav/ticketsList/TicketList";
 import TheatreInfoScreen from "./app/presentation/views/mainNav/theatreInfo/TheatreInfo";
 import HomeScreen from "./app/presentation/views/mainNav/home/Home";
-import {ClientTabNavigator} from "./app/presentation/navigation/ClientTabNavigator";
-import {AdminTabNavigator} from "./app/presentation/navigation/AdminTabNavigator";
+import {TabNavigator} from "./app/presentation/navigation/TabNavigator";
 import PurchasedTicketScreen from "./app/presentation/views/purchase/purchasedTicket/PurchasedTicket";
 
 
@@ -30,8 +29,7 @@ export type RootStackParamList ={
   TicketListScreen: undefined,
   TheatreInfoScreen: undefined,
   HomeScreen: undefined,
-  AdminTabNavigator: undefined;
-  ClientTabNavigator: undefined;
+  TabNavigator: undefined;
   PurchasedTicketScreen: undefined;
 }
 
@@ -51,9 +49,8 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name={"PurchasedTicketScreen"} component={PurchasedTicketScreen}></Stack.Screen>
-                    <Stack.Screen name={"AdminTabNavigator"} component={AdminTabNavigator} options={{title:"Navegación de administración"}}></Stack.Screen>
-                    <Stack.Screen name={"ClientTabNavigator"} component={ClientTabNavigator} options={{title:"Navegación de cliente"}}></Stack.Screen>
+
+                    <Stack.Screen name={"TabNavigator"} component={TabNavigator} options={{title:"Navegación"}}></Stack.Screen>
                     <Stack.Screen name={"TheatreInfoScreen"} component={TheatreInfoScreen}></Stack.Screen>
                     <Stack.Screen name={"TicketListScreen"} component={TicketListScreen}></Stack.Screen>
                     <Stack.Screen name={"UserProfileScreen"} component={UserProfileScreen}></Stack.Screen>
@@ -63,6 +60,7 @@ export default function App() {
                     <Stack.Screen name={"WelcomeScreen"} component={WelcomeScreen}></Stack.Screen>
                     <Stack.Screen name={"MovieDetailsScreen"} component={MovieDetailsScreen}></Stack.Screen>
                     <Stack.Screen name={"TicketSelectionScreen"} component={TicketSelection}></Stack.Screen>
+                    <Stack.Screen name={"PurchasedTicketScreen"} component={PurchasedTicketScreen}></Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
         );
