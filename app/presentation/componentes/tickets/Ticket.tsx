@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View,Image} from "react-native";
-import Ticket from "../../../../assets/images/ticket.svg"
+import {StyleSheet, Text, View, Image, ImageBackground} from "react-native";
 import MovieBox from "../movies/MovieBox";
 import {MovieBoxInterface} from "../../interfaces/MoviesInterface";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
 const TicketBox = () =>{
     const movie: MovieBoxInterface = {
@@ -15,22 +15,65 @@ const TicketBox = () =>{
     }
 
     return (
-        <View>
-            <Ticket>
-                <Image source={require("../../../../assets/images/img_pelicula.png")} style={styles.image} />
-                <MovieBox movie={movie} />
-            </Ticket>
-            <Text>hola</Text>
+        <View style={stylesTicketBox.mainContainer}>
+            <ImageBackground source={require("../../../../assets/images/ticket.png")}
+            resizeMode={"contain"}
+            style={stylesTicketBox.ticketContainer}>
+                <View style={stylesTicketBox.qrContainer}>
+                    <Image source={require("../../../../assets/images/qr.png")}/>
+                </View>
+
+                <View style={stylesTicketBox.amountContainer}>
+                    <Text style={stylesTicketBox.amountText}>x3 entradas</Text>
+                </View>
+                <View style={stylesTicketBox.movieBoxContainer}>
+                    <MovieBox movie={movie} color={AppColors.black} fontScale={0.97}/>
+                </View>
+
+
+            </ImageBackground>
+
+
         </View>
     )
 }
 
-const styles = StyleSheet.create({
-    image: {
-        width: "100%", // Ajusta según necesidad
-        height: 200,   // Ajusta según necesidad
-        resizeMode: "cover"
+const stylesTicketBox = StyleSheet.create({
+    mainContainer:{
+        flex: 1,
+        width: '100%',
+        height:'100%',
+    },
+    ticketContainer:{
+        height:'100%',
+        marginHorizontal:15,
+        flexDirection:'column',
+        alignSelf:'center',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    qrContainer:{
+      paddingTop: 60
+    },
+    amountContainer:{
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row',
+        marginTop: -20,
+        marginBottom: 22
+    },
+    amountText:{
+        color:AppColors.black,
+        fontSize: 23.2,
+        fontFamily: AppFonts.bold
+    },
+    movieBoxContainer:{
+        paddingBottom:50
     }
-});
+
+})
+
 
 export default TicketBox;
