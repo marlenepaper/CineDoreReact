@@ -4,8 +4,6 @@ import { FontAwesome, Feather, Ionicons } from 'react-native-vector-icons';
 
 // Importa las pantallas desde tu estructura
 import HomeScreen from '../views/mainNav/home/Home';
-import TheatreInfoScreen from '../views/mainNav/theatreInfo/TheatreInfo';
-import TicketsListScreen from '../views/mainNav/ticketsList/TicketList';
 import UserProfileScreen from '../views/mainNav/userProfile/UserProfile';
 import TicketListScreen from "../views/mainNav/ticketsList/TicketList";
 
