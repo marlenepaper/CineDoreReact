@@ -6,6 +6,7 @@ import {AuthButton} from "../../../componentes/auth/AuthButton";
 import stylesRegister from "./StylesRegister";
 import {AppColors} from "../../../theme/AppTheme";
 import {LinearGradient} from "expo-linear-gradient";
+import viewModel from "./ViewModel";
 
 function RegisterScreen({navigation}:PropsStackNavigation) {
     return(
@@ -25,10 +26,6 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                     </View>
                     <View style={stylesRegister.formContainer}>
                         <AuthFormInput label={"Dirección de correo electrónico*"}
-                                       keyboardType={"email-address"}
-                                       secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
-                        <AuthFormInput label={"Confirma el correo electrónico*"}
                                        keyboardType={"email-address"}
                                        secureTextEntry={false}
                                        onPressFromInterface={() =>{}}/>
@@ -78,7 +75,8 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                                 <Text style={stylesRegister.highlightText}> Polítiva de privacidad</Text>.
                             </Text>
                         </View>
-                        <AuthButton textButton={"Crear cuenta"} onPressFromInterface={() => {}}/>
+                        <AuthButton textButton={"Crear cuenta"} onPressFromInterface={() => {register()}}/>
+
                         <View style={stylesRegister.loginTextContainer}>
                             <Text style={stylesRegister.rightsText}>¿Ya tienes cuenta? <Text
                                 style={stylesRegister.highlightText}

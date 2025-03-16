@@ -38,7 +38,10 @@ function WelcomeScreen({navigation}:PropsStackNavigation) {
 
                     </View>
                     <View style={stylesWelcome.invitadoTextContainer}>
-                        <Text style={stylesWelcome.invitadoText}>
+                        <Text
+                            style={stylesWelcome.invitadoText}
+                            onPress={() => navigation.navigate("TabNavigator")}
+                        >
                             Continuar como invitado
                         </Text>
                     </View>

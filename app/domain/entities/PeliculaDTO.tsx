@@ -1,10 +1,6 @@
-export interface FuncionDTO {
-    id: number;
-    fechaHora: string;
-    sala: string;
-}
+import { FuncionDTO } from './FuncionDTO';
 
-export interface PeliculaDTOInterface {
+export interface PeliculaDTO {
     id: number;
     nombre: string;
     anio: number;
