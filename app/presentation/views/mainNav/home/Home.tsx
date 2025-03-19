@@ -1,5 +1,5 @@
-import {PropsStackNavigation} from "../../../interfaces/StackNav";
-import {Dimensions, View} from "react-native";
+
+import {Dimensions, FlatList, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import {AppColors} from "../../../theme/AppTheme";
 import stylesRegister from "../../auth/register/StylesRegister";
@@ -12,7 +12,14 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {CarouselItem} from "../../../componentes/home/CarouselItem";
 import {HomeCarousel} from "../../../interfaces/MoviesInterface";
 import stylesHome from "./StylesHome";
+import {useCallback} from "react";
+import {MovieItem} from "../../../componentes/home/MovieItem";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../../../../../App";
 
+interface PropsStackNavigation extends NativeStackScreenProps<RootStackParamList, "HomeScreen"> {
+
+}
 
 function HomeScreen({navigation}: PropsStackNavigation) {
     const width = Dimensions.get("window").width
@@ -23,6 +30,27 @@ function HomeScreen({navigation}: PropsStackNavigation) {
         {image:require("../../../../../assets/backgrounds/image_error.png"), title:"Ruinas y rutinas", description: "Instantes de cotidianeidad en el diario fílmico"},
         {image:require("../../../../../assets/backgrounds/image_error.png"), title:"La dama de la antorcha", description: "100 años de Columbia Pictures"},
     ]
+    const pelis : any[] = [require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png"),
+        require("../../../../../assets/backgrounds/image_error.png")]
+    const renderItem = useCallback(
+        ({item}: {item: string}) => <MovieItem imagenPoster={item} navigation={navigation}/>, []);
+
     return (
         <View style={stylesHome.mainContainer}>
             <LinearGradient
@@ -51,9 +79,7 @@ function HomeScreen({navigation}: PropsStackNavigation) {
                     </View>
 
                 </View>
-                <View>
 
-                </View>
                     <GestureHandlerRootView style={stylesHome.carousel}>
                         <View>
                             <Carousel
@@ -71,9 +97,15 @@ function HomeScreen({navigation}: PropsStackNavigation) {
                     </GestureHandlerRootView>
 
                 <View style={stylesHome.moviesContainer}>
-
+                    <FlatList data={pelis}
+                              keyExtractor={(item, index) => index.toString()}
+                              initialNumToRender={6}
+                              windowSize={6}
+                              numColumns={2}
+                              removeClippedSubviews={true}
+                              columnWrapperStyle={{ gap: 15 }}
+                              renderItem={renderItem}/>
                 </View>
-
             </View>
 
         </View>

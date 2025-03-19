@@ -8,13 +8,10 @@ const stylesHome = StyleSheet.create({
         alignItems: "center",
     },
     contentContainer: {
-        position: "absolute",
         width: "90%",
         height: "100%",
         paddingTop: 26,
-
     },
-
     logosContainer: {
         display: "flex",
         flexDirection: "row",
@@ -38,18 +35,18 @@ const stylesHome = StyleSheet.create({
     },
     logoMinisterio: {},
     logoFilmoteca: {},
-    ticketContainer:{
-        marginTop: 160
-    },
     carousel:{
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 25,
-        marginTop: 20
+        marginTop: 30,
     },
     moviesContainer:{
-
+        flex: 1,
+        width: "100%",
+        marginTop:-200,
+        alignItems: "center",
     }
 
 });
