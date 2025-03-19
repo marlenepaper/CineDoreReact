@@ -1,102 +1,84 @@
 import {PropsStackNavigation} from "../../../interfaces/StackNav";
-import {ImageBackground, StyleSheet, Text, View} from "react-native";
+import {Dimensions, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import {AppColors} from "../../../theme/AppTheme";
 import stylesRegister from "../../auth/register/StylesRegister";
-
+import Carousel from "react-native-reanimated-carousel";
 import LogoCinedore from "../../../../../assets/icons/logo_completo.svg";
 import LogoMinisterio from "../../../../../assets/icons/logo-ministerioCultura.svg";
 import LogoFilmoteca from "../../../../../assets/icons/logo-filmoteca.svg";
 import IconoInfo from "../../../../../assets/icons/informacion.svg";
-import TicketBox from "../../../componentes/tickets/Ticket";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {CarouselItem} from "../../../componentes/home/CarouselItem";
+import {HomeCarousel} from "../../../interfaces/MoviesInterface";
+import stylesHome from "./StylesHome";
 
 
 function HomeScreen({navigation}: PropsStackNavigation) {
-
+    const width = Dimensions.get("window").width
+    const carousel: HomeCarousel[] = [{image:require("../../../../../assets/backgrounds/image_error.png"), title: "Preston Sturges", description: "La risa endiablada"},
+        {image:require("../../../../../assets/backgrounds/image_error.png"), title:"Constelación Sarah Maldoror", description: "La lucha continua"},
+        {image:require("../../../../../assets/backgrounds/image_error.png"), title:"Centenario Raj Kapoor", description: "Leyenda del cine hindi"},
+        {image:require("../../../../../assets/backgrounds/image_error.png"), title:"José Luis Borau", description: "Un gigante"},
+        {image:require("../../../../../assets/backgrounds/image_error.png"), title:"Ruinas y rutinas", description: "Instantes de cotidianeidad en el diario fílmico"},
+        {image:require("../../../../../assets/backgrounds/image_error.png"), title:"La dama de la antorcha", description: "100 años de Columbia Pictures"},
+    ]
     return (
-        <View style={styles.mainContainer}>
+        <View style={stylesHome.mainContainer}>
             <LinearGradient
                 colors={[AppColors.bg_input_dark, AppColors.bg_input_dark, AppColors.prueba_claro, AppColors.prueba_claro]}
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 1}}
                 style={stylesRegister.mainGradient}
             />
-            <View style={styles.contentContainer}>
-                <View style={styles.logosContainer}>
-                    <View style={styles.CinedoreMasInfo}>
-                        <View style={styles.logoCineDoreContainer}>
-                            <LogoCinedore style={styles.logoCineDore} width={150} height={40}/>
+            <View style={stylesHome.contentContainer}>
+                <View style={stylesHome.logosContainer}>
+                    <View style={stylesHome.CinedoreMasInfo}>
+                        <View style={stylesHome.logoCineDoreContainer}>
+                            <LogoCinedore style={stylesHome.logoCineDore} width={150} height={40}/>
                         </View>
-                        <View style={styles.info}>
+                        <View style={stylesHome.info}>
                             <IconoInfo/>
                         </View>
                     </View>
-                    <View style={styles.logosGobierno}>
-                        <View style={styles.logoMinisterio}>
+                    <View style={stylesHome.logosGobierno}>
+                        <View style={stylesHome.logoMinisterio}>
                             <LogoMinisterio/>
                         </View>
-                        <View style={styles.logoFilmoteca}>
+                        <View style={stylesHome.logoFilmoteca}>
                             <LogoFilmoteca/>
                         </View>
                     </View>
 
                 </View>
+                <View>
 
+                </View>
+                    <GestureHandlerRootView style={stylesHome.carousel}>
+                        <View>
+                            <Carousel
+                                loop={true}
+                                width={width}
+                                height={250}
+                                autoPlay={false}
+                                data={carousel}
+                                scrollAnimationDuration={1000}
+                                renderItem={( {item} ) => (
+                                    <CarouselItem height={247} width={width - 40} movieItem={item}/>
+                                )}
+                            />
+                        </View>
+                    </GestureHandlerRootView>
+
+                <View style={stylesHome.moviesContainer}>
+
+                </View>
 
             </View>
-            <View style={styles.ticketContainer}>
-                <TicketBox/>
-            </View>
-
-
 
         </View>
     );
-};
+}
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: AppColors.bg_input_dark,
-        alignItems: "center",
-    },
-    contentContainer: {
-        position: "absolute",
-        width: "90%",
-        height: "100%",
-        paddingTop: 26,
-
-    },
-
-    logosContainer: {
-
-        flexDirection: "row",
-        justifyContent: "space-around",
-    },
-    CinedoreMasInfo: {
-        flexDirection: "row",
-        gap: 8
-    },
-    logoCineDoreContainer: {},
-    logoCineDore: {},
-    info: {
-        marginTop: 6
-    },
-    logosGobierno: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 6,
-        transform: [{scale: 0.7}],
-        marginLeft: 45,
-    },
-    logoMinisterio: {},
-    logoFilmoteca: {},
-    ticketContainer:{
-        marginTop: 160
-    }
-
-
-
-});
 
 export default HomeScreen;

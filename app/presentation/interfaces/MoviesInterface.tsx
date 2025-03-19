@@ -16,3 +16,9 @@ export interface MovieDataInterface{
     duration: string,
     version: string,
 }
+
+export interface HomeCarousel{
+    image: any,
+    title: string,
+    description: string,
+}

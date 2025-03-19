@@ -51,8 +51,8 @@ export default function App() {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name={"PurchasedTicketScreen"} component={PurchasedTicketScreen}></Stack.Screen>
                     <Stack.Screen name={"AdminTabNavigator"} component={AdminTabNavigator} options={{title:"Navegación de administración"}}></Stack.Screen>
+                    <Stack.Screen name={"PurchasedTicketScreen"} component={PurchasedTicketScreen}></Stack.Screen>
                     <Stack.Screen name={"ClientTabNavigator"} component={ClientTabNavigator} options={{title:"Navegación de cliente"}}></Stack.Screen>
                     <Stack.Screen name={"TheatreInfoScreen"} component={TheatreInfoScreen}></Stack.Screen>
                     <Stack.Screen name={"TicketListScreen"} component={TicketListScreen}></Stack.Screen>
