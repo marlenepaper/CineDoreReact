@@ -1,10 +1,9 @@
-export interface RegisterRequestDTO {
-    id?: number,
+export interface UserRegisterRequestDTO {
     nombre: string;
     apellidos: string;
     correoElectronico: string;
     contrasenia: string;
     telefono?: string;
     identificacion: string;
-    fechaNacimiento?: string;  // Formato de fecha como string
+    fechaNacimiento?: string;
 }

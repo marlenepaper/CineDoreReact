@@ -1,8 +1,8 @@
 import {UserLocalRepositoryImpl} from "../../../data/repositories/UserLocalRepository";
-import {RegisterRequestDTO} from "../../entities/RegisterRequestDTO";
+import {UserRegisterRequestDTO} from "../../entities/UserRegisterRequestDTO";
 
 const {updateUser} = new UserLocalRepositoryImpl()
 
-export const updateUserUseCase = async (user: RegisterRequestDTO, user_id: number|undefined): Promise<RegisterRequestDTO> => {
+export const updateUserUseCase = async (user: UserRegisterRequestDTO, user_id: number|undefined): Promise<UserRegisterRequestDTO> => {
     return await updateUser(user, user_id);
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {RegisterAuthUseCase} from "../../../../domain/useCases/auth/Register";
 import {LoginAuthUseCase} from "../../../../domain/useCases/auth/Login";
 import {saveUserUseCase} from "../../../../domain/useCases/userLocal/SaveUser";
-import {RegisterRequestDTO} from "../../../../domain/entities/RegisterRequestDTO";
+import {UserRegisterRequestDTO} from "../../../../domain/entities/UserRegisterRequestDTO";
 import {useUserLocalStorage} from "../../../hooks/useUserLocalStorage";
 
 const LoginViewModel = () =>{
@@ -27,7 +27,7 @@ const LoginViewModel = () =>{
             if(!response.success){
                 setErrorMessage(response.message)
             }else{
-                await saveUserUseCase(response.data as RegisterRequestDTO)
+                await saveUserUseCase(response.data as UserRegisterRequestDTO)
                 //para almacenar el error y decirle que ha cambiado el estado
                 await getUserSession()
             }
