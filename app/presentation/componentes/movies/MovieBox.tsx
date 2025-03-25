@@ -1,93 +1,72 @@
-import { StyleSheet, Text, View } from "react-native";
-import { useMemo } from "react";
+import {StyleSheet, Text, View} from "react-native";
 import Clock from "../../../../assets/icons/clock.svg";
-import { AppColors, AppFonts } from "../../theme/AppTheme";
-import { PeliculaDTOInterface, FuncionDTO } from "../../interfaces/MoviesInterface";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
+import {MovieBoxInterface} from "../../interfaces/MoviesInterface";
 
 interface IMovieBoxProps {
-    movie: PeliculaDTOInterface;
-    color: string;
-    fontScale?: number;
-    selectedFunctionId: number; // Propiedad para seleccionar la función por id
+    movie: MovieBoxInterface,
+    color: string,
+    fontScale?: number
 }
 
-const MovieBox = ({ movie, color, fontScale = 1, selectedFunctionId }: IMovieBoxProps) => {
-    // Buscar la función que tenga el mismo id que el proporcionado
-    const selectedFunction = movie.funciones.find(funcion => funcion.id === selectedFunctionId);
+const MovieBox = ({movie, color, fontScale = 1}: IMovieBoxProps) =>{
+    const newDate = new Date(movie.date);
 
-    if (!selectedFunction) {
-        return <Text>No hay función disponible con el ID proporcionado.</Text>; // Si no hay función, mostrar mensaje
-    }
+    let formattedDate = new Intl.DateTimeFormat("es-ES", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+    }).format(newDate).replace(",", "");
 
-    // Formatear fecha solo cuando selectedFunction.fechaHora cambie
-    const formattedDate = useMemo(() => {
-        const newDate = new Date(selectedFunction.fechaHora);
-        let dateStr = new Intl.DateTimeFormat("es-ES", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-        }).format(newDate).replace(",", "");
-
-        return dateStr.charAt(0).toUpperCase() + dateStr.slice(1).toLowerCase();
-    }, [selectedFunction.fechaHora]);
-
-    // Escalar tamaño de fuente
+    formattedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1).toLowerCase();
     const scaleFont = (size: number) => size * fontScale;
 
-    // Estilos base reutilizables
-    const baseText = {
-        fontSize: scaleFont(16),
-        color: color,
-    };
-
     return (
-        <View style={[styles.movieBoxContainer, { borderColor: color }]}>
-            {/* Primera fila */}
-            <View style={[styles.movieBoxRow1, { borderColor: color }]}>
-                <View style={styles.movieNameContainer}>
-                    <Text style={[styles.movieAge, { fontSize: scaleFont(16), borderColor: color, color }]}>
-                        {movie.clasificacion}
+        <View style={{ ...stylesMovieBox.movieBoxContainer, borderColor: color }}>
+            <View style={{ ...stylesMovieBox.movieBoxRow1, borderColor: color }}>
+                <View style={stylesMovieBox.movieNameContainer}>
+                    <Text style={{ ...stylesMovieBox.movieAge, fontSize: scaleFont(16), borderColor: color, color: color }}>
+                        {movie.age}
                     </Text>
-                    <Text style={[styles.movieName, { fontSize: scaleFont(20), color }]}>
-                        {movie.nombre}
+                    <Text style={{ ...stylesMovieBox.movieName, fontSize: scaleFont(20), color: color }}>
+                        {movie.name}
                     </Text>
                 </View>
 
-                <View style={styles.durationVersionContainer}>
-                    <Clock fill={color} />
-                    <Text style={[styles.filmTypeText, { fontSize: scaleFont(14), color }]}>
-                        {movie.duracion} min
+                <View style={stylesMovieBox.durationVersionContainer}>
+                    <Clock fill={color}/>
+                    <Text style={{ ...stylesMovieBox.filmTypeText, fontSize: scaleFont(14), color: color }}>
+                        {movie.duration}
                     </Text>
-                    <Text style={[styles.versionText, { fontSize: scaleFont(14), color, borderColor: color }]}>
-                        {movie.formato}
+                    <Text style={{ ...stylesMovieBox.versionText, fontSize: scaleFont(14), color: color, borderColor: color }}>
+                        {movie.version}
                     </Text>
                 </View>
             </View>
-
-            {/* Segunda fila */}
-            <View style={styles.movieBoxRow2}>
-                <Text style={[baseText, styles.movieDateText, { paddingRight: 5 }]}>
+            <View style={stylesMovieBox.movieBoxRow2}>
+                <Text style={{ ...stylesMovieBox.movieDateText, fontSize: scaleFont(16), color: color, paddingRight: 5 }}>
                     {formattedDate}
                 </Text>
-                <Text style={[baseText, styles.movieTimeText, { borderColor: color }]}>
-                    {selectedFunction.fechaHora.split(" ")[1]} {/* Mostrar solo la hora */}
+                <Text style={{ ...stylesMovieBox.movieTimeText, fontSize: scaleFont(16), color: color, borderColor: color }}>
+                    {movie.time}
                 </Text>
-                <Text style={[baseText, styles.movieDateText, { paddingHorizontal: 5 }]}>
-                    Sala: <Text style={[styles.regularText, { fontSize: scaleFont(14), color }]}>{selectedFunction.sala}</Text>
+                <Text style={{ ...stylesMovieBox.movieDateText, fontSize: scaleFont(16), paddingRight: 5, paddingLeft: 5 }}>
+                    Sala: <Text style={{ ...stylesMovieBox.regularText, fontSize: scaleFont(14), color: color }}> {movie.room}</Text>
                 </Text>
             </View>
         </View>
-    );
-};
+    )
+}
 
-// Estilos
-const styles = StyleSheet.create({
-    movieBoxContainer: {
+const stylesMovieBox = StyleSheet.create({
+    movieBoxContainer:{
         borderWidth: 1,
+        display: "flex",
         flexDirection: "column",
         marginHorizontal: 15,
     },
-    movieBoxRow1: {
+    movieBoxRow1:{
+        display: "flex",
         flexDirection: "row",
         alignContent: "center",
         justifyContent: "space-between",
@@ -95,52 +74,62 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderBottomWidth: 0.5,
     },
-    movieBoxRow2: {
+    movieBoxRow2:{
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 12,
         justifyContent: "space-between",
     },
-    movieAge: {
+    movieAge:{
         borderWidth: 1,
+        fontSize: 16,
         fontFamily: AppFonts.bold,
         borderRadius: 5,
         paddingHorizontal: 6,
         paddingVertical: 3,
-        marginEnd: 8,
+        marginEnd: 8
     },
-    movieNameContainer: {
+    movieNameContainer:{
+        display:"flex",
         flexDirection: "row",
-        alignItems: "center",
+        alignItems:'center',
     },
-    movieName: {
+    movieName:{
+        fontSize: 20,
         fontFamily: AppFonts.bold,
     },
-    durationVersionContainer: {
+    durationVersionContainer:{
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
     },
-    filmTypeText: {
+    filmTypeText:{
+        fontSize: 14,
         fontFamily: AppFonts.regular,
-        paddingHorizontal: 5,
+        paddingHorizontal: 5
     },
-    versionText: {
+    versionText:{
+        fontSize: 14,
         fontFamily: AppFonts.bold,
         borderWidth: 1,
     },
-    movieDateText: {
-        fontFamily: AppFonts.bold,
+    movieDateText:{
+        fontSize:16,
+        fontFamily: AppFonts.bold
     },
-    regularText: {
+    regularText:{
+        fontSize: 14,
         fontFamily: AppFonts.regular,
     },
-    movieTimeText: {
+    movieTimeText:{
+        fontSize:16,
         fontFamily: AppFonts.bold,
         borderLeftWidth: 0.5,
         borderRightWidth: 0.5,
         paddingVertical: 15,
         paddingHorizontal: 15,
-    },
-});
+    }
+})
 
 export default MovieBox;
