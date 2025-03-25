@@ -9,30 +9,30 @@ interface IMovieDataProps{
 }
 export const MovieData = ({movie}: IMovieDataProps) =>{
     return(
-            <View style={stylesMovieData.movieDetails}>
-                <View style={stylesMovieData.ageContainer}>
-                    <ImageBackground source={require("../../../../assets/images/borde_degradado.png")}
-                                     resizeMode={"stretch"}
-                                     style={stylesMovieData.ageBackground}>
-                        <Text style={stylesMovieData.ageText}>{movie.age}</Text>
-                    </ImageBackground>
-                </View>
+        <View style={stylesMovieData.movieDetails}>
+            <View style={stylesMovieData.ageContainer}>
+                <ImageBackground source={require("../../../../assets/images/borde_degradado.png")}
+                                 resizeMode={"stretch"}
+                                 style={stylesMovieData.ageBackground}>
+                    <Text style={stylesMovieData.ageText}>{movie.age}</Text>
+                </ImageBackground>
+            </View>
 
-                <View style={stylesMovieData.nameTypeContainer}>
-                    <Text style={stylesMovieData.filmNameText}>{movie.name}</Text>
-                    <View style={stylesMovieData.typeYearContainer}>
-                        <Text style={{...stylesMovieData.filmTypeText, paddingRight: 12}}>{movie.category}</Text>
-                        <Line style={{marginTop: 3}}/>
-                        <Text style={{...stylesMovieData.filmTypeText, paddingLeft: 12}}>{movie.year}</Text>
-                    </View>
-                </View>
-
-                <View style={stylesMovieData.durationVersionContainer}>
-                    <Clock/>
-                    <Text style={{...stylesMovieData.filmTypeText, paddingHorizontal:5}}>{movie.duration}</Text>
-                    <Text style={stylesMovieData.versionText}>{movie.version}</Text>
+            <View style={stylesMovieData.nameTypeContainer}>
+                <Text style={stylesMovieData.filmNameText}>{movie.name}</Text>
+                <View style={stylesMovieData.typeYearContainer}>
+                    <Text style={{...stylesMovieData.filmTypeText, paddingRight: 12}}>{movie.category}</Text>
+                    <Line style={{marginTop: 3}}/>
+                    <Text style={{...stylesMovieData.filmTypeText, paddingLeft: 12}}>{movie.year}</Text>
                 </View>
             </View>
+
+            <View style={stylesMovieData.durationVersionContainer}>
+                <Clock/>
+                <Text style={{...stylesMovieData.filmTypeText, paddingHorizontal:5}}>{movie.duration}</Text>
+                <Text style={stylesMovieData.versionText}>{movie.version}</Text>
+            </View>
+        </View>
 
     )
 }
