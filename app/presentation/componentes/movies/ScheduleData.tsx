@@ -21,8 +21,8 @@ export const ScheduleData= ({date, time, onPressFromInterface}:IScheduleDataProp
 
     return(
         <TouchableOpacity style={stylesScheduleData.mainContainer}
-                onPress={() => onPressFromInterface}
-        activeOpacity={0.6}>
+                          onPress={() => onPressFromInterface}
+                          activeOpacity={0.6}>
             <Text style={stylesScheduleData.movieDateText}>{formattedDate}</Text>
             <Text style={stylesScheduleData.movieTimeText}>{time}</Text>
         </TouchableOpacity>
@@ -32,9 +32,9 @@ export const ScheduleData= ({date, time, onPressFromInterface}:IScheduleDataProp
 
 const stylesScheduleData = StyleSheet.create({
     mainContainer:{
-      display: "flex",
-      flexDirection: "column",
-      marginBottom: 16,
+        display: "flex",
+        flexDirection: "column",
+        marginBottom: 16,
         zIndex:1
     },
     movieDateText:{
