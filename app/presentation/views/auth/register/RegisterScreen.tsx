@@ -1,4 +1,4 @@
-import {ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {ScrollView, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import BackArrow from "../../../../../assets/icons/chevron-left.svg";
 import {PropsStackNavigation} from "../../../interfaces/StackNav";
 import {AuthFormInput} from "../../../componentes/auth/FormInput";
@@ -6,9 +6,16 @@ import {AuthButton} from "../../../componentes/auth/AuthButton";
 import stylesRegister from "./StylesRegister";
 import {AppColors} from "../../../theme/AppTheme";
 import {LinearGradient} from "expo-linear-gradient";
-import viewModel from "./ViewModel";
+import ViewModel from "./ViewModel";
+import {useEffect} from "react";
 
 function RegisterScreen({navigation}:PropsStackNavigation) {
+    const {register, firstName, lastName, password, repeatPassword, name, phone, birthdate, email, identification, onChangeRegister, errorMessage} = ViewModel.RegisterViewModel()
+    useEffect(() =>{
+        if (errorMessage != ""){
+            ToastAndroid.show(errorMessage, ToastAndroid.LONG)
+        }
+    }, [errorMessage])
     return(
             <ScrollView style={stylesRegister.mainContainer}
                         contentContainerStyle={{flexGrow: 1}}>
@@ -28,41 +35,46 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                         <AuthFormInput label={"Dirección de correo electrónico*"}
                                        keyboardType={"email-address"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
+                                       onPressFromInterface={(text) =>{onChangeRegister('email', text)}}/>
                         <View>
                             <AuthFormInput label={"Contraseña*"}
                                            keyboardType={"default"}
                                            secureTextEntry={true}
-                                           onPressFromInterface={() =>{}}>
+                                           onPressFromInterface={(text) =>{onChangeRegister('password', text)}}>
                             </AuthFormInput>
                             <View style={stylesRegister.textPasswordContainer}>
                                 <Text style={stylesRegister.textPassword}>Tu contraseña debe tener:</Text>
                                 <Text style={stylesRegister.textPassword}>- Mínimo 10 caracteres</Text>
                             </View>
-
+                            <AuthFormInput label={"Repetir contraseña*"}
+                                           keyboardType={"default"}
+                                           secureTextEntry={true}
+                                           onPressFromInterface={(text) =>{onChangeRegister('repeatPassword', text)}}>
+                            </AuthFormInput>
                         </View>
 
 
                         <AuthFormInput label={"Nombre*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
+                                       onPressFromInterface={(text) =>{onChangeRegister('firstName', text)}}/>
                         <AuthFormInput label={"Apellidos*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
+                                       onPressFromInterface={(text) =>{onChangeRegister('lastName', text)}}/>
                         <AuthFormInput label={"Fecha de nacimiento*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
+                                       isDate={true}
+                                       onPressFromInterface={(text) =>{onChangeRegister('birthdate', text)}}/>
                         <AuthFormInput label={"Teléfono"}
                                        keyboardType={"phone-pad"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
+                                       onPressFromInterface={(text) =>{onChangeRegister('phone', text)}}/>
                         <AuthFormInput label={"DNI/NIE/Pasaporte"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={() =>{}}/>
+                                       onPressFromInterface={(text) =>{onChangeRegister('identification', text)}}/>
                         <View>
                             <Text style={stylesRegister.compulsoryText}>* Indica un campo obligatorio</Text>
                             <Text style={stylesRegister.rightsText}>Al seleccionar <Text style={{...stylesRegister.highlightText, textDecorationLine: "none"}}>Crear Cuenta</Text> confirma que es mayor de edad,

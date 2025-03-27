@@ -1,17 +1,23 @@
-import {KeyboardType, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
+import {KeyboardType, StyleSheet, Text, TextInput, View, Image, Pressable, Modal} from "react-native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {LinearGradient} from "expo-linear-gradient";
 import {useState} from "react";
+import DatePicker from "react-native-date-picker";
 
 interface IFormInputProps{
     label: string,
     keyboardType: KeyboardType,
     secureTextEntry: boolean,
+    isDate?: boolean
     onPressFromInterface:(text:string) => void,
 }
 
-export const AuthFormInput =({label, keyboardType, secureTextEntry, onPressFromInterface}: IFormInputProps) => {
+export const AuthFormInput =({label, keyboardType, secureTextEntry, isDate, onPressFromInterface}: IFormInputProps) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [open, setOpen] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+
     return (
         <View>
             <Text style={stylesAuthFormInput.labelText}>{label}</Text>
@@ -23,19 +29,34 @@ export const AuthFormInput =({label, keyboardType, secureTextEntry, onPressFromI
                     <TextInput style={stylesAuthFormInput.textInput}
                                keyboardType={keyboardType}
                                secureTextEntry={secureTextEntry && !isPasswordVisible}
-                               onChangeText={(text) => onPressFromInterface(text)}/>
+                               onChangeText={(text) => onPressFromInterface(text)}
+                                editable={!isDate}/>
+                    {isDate ?
+                        <Pressable onPress={() => setOpen(true)}>
+                            <Image source={require("../../../../assets/icons/calendar.png")} style={stylesAuthFormInput.eyeIcon}/>
+                        </Pressable>
+                    :null}
                     {secureTextEntry ?
-                        <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}>
+                        <Pressable onPress={() => setPasswordVisible(!isPasswordVisible)}>
                             <Image source={isPasswordVisible?
                                 require("../../../../assets/icons/eye.png")
-                                :  require("../../../../assets/icons/eye.png")}
+                                :  require("../../../../assets/icons/eye_filled.png")}
                                    style={stylesAuthFormInput.eyeIcon}/>
-                        </TouchableOpacity>
+                        </Pressable>
                     : null}
 
                 </View>
 
         </LinearGradient>
+
+            <DatePicker date={date}
+                        open={open}
+                        onConfirm={(date) => {
+                            setOpen(false)
+                            setDate(date)}}
+                        onCancel={() => setOpen(false)}
+            />
+
 
         </View>
     )
