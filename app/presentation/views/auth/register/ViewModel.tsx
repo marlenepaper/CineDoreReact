@@ -1,6 +1,5 @@
 import React from "react";
 import {RegisterAuthUseCase} from "../../../../domain/useCases/auth/Register";
-import {ToastAndroid} from "react-native";
 
 const RegisterViewModel = () =>{
     const [errorMessage, setErrorMessage] = React.useState<string>("");

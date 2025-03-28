@@ -1,12 +1,12 @@
 import React from "react";
 import {useUserLocalStorage} from "../../../hooks/useUserLocalStorage";
-import {LoginRequestDTO} from "../../../../domain/entities/LoginRequestDTO";
 import {LoginAuthUseCase} from "../../../../domain/useCases/auth/Login";
 import {saveUserUseCase} from "../../../../domain/useCases/userLocal/SaveUser";
-import {UserRegisterRequestDTO} from "../../../../domain/entities/UserRegisterRequestDTO";
+import {RegisterResponse} from "../../../../domain/entities/UserRegisterResponseDTO";
 
 const LoginViewModel = () =>{
     const [errorMessage, setErrorMessage] = React.useState<string>("");
+    const [success, setSuccess] = React.useState<boolean>(false);
     const [values, setValues] = React.useState({
         email: "",
         password: "",
@@ -23,18 +23,16 @@ const LoginViewModel = () =>{
     }
     const login = async () => {
         if (validateForm()){
-            const dataSend:LoginRequestDTO = {
+            const dataSend = {
                 correoElectronico: values.email,
                 contrasenia: values.password,
             }
+            console.log(dataSend)
             const response = await LoginAuthUseCase(dataSend);
-            if(!response.success){
-                setErrorMessage(response.message)
-            }else{
-                await saveUserUseCase(response.data as UserRegisterRequestDTO)
-                //para almacenar el error y decirle que ha cambiado el estado
-                await getUserSession()
-            }
+            await saveUserUseCase(response as RegisterResponse);
+            //para almacenar el error y decirle que ha cambiado el estado
+            await getUserSession()
+            setSuccess(true)
             console.log("RESULT: " + JSON.stringify(response));
         }
     }
@@ -54,7 +52,8 @@ const LoginViewModel = () =>{
         onChangeLogin,
         login,
         errorMessage,
-        user
+        user,
+        success
     }
 
 }

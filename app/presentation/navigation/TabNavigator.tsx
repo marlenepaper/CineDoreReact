@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image } from 'react-native';
 import { FontAwesome, Feather, Ionicons } from 'react-native-vector-icons';
 
 // Importa las pantallas desde tu estructura

@@ -83,7 +83,7 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                                        keyboardType={"phone-pad"}
                                        secureTextEntry={false}
                                        onPressFromInterface={(text) =>onChangeRegister('phone', text)}/>
-                        <AuthFormInput label={"DNI/NIE/Pasaporte"}
+                        <AuthFormInput label={"DNI/NIE/Pasaporte*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
                                        onPressFromInterface={(text) =>onChangeRegister('identification', text)}/>

@@ -1,13 +1,14 @@
-import { UsuarioDTO} from "../../domain/entities/UsuarioDTO";
+
 import { LoginRequestDTO } from "../../domain/entities/LoginRequestDTO";
 import { UserLocalRepository } from "../../domain/repositories/UserLocalRepository";
 import { LocalStorage } from "../sources/local/LocalStorage";
 import { ApiDelivery } from "../sources/remote/api/ApiDelivery";
 import { AxiosError } from "axios";
 import {UserRegisterRequestDTO} from "../../domain/entities/UserRegisterRequestDTO";
+import {RegisterResponse} from "../../domain/entities/UserRegisterResponseDTO";
 
 export class UserLocalRepositoryImpl implements UserLocalRepository {
-    async save(user: LoginRequestDTO): Promise<void> {
+    async save(user: RegisterResponse): Promise<void> {
         const { save } = LocalStorage();
 
         await save("cine_dore_usuario", JSON.stringify(user));
