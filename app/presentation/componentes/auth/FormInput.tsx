@@ -33,6 +33,9 @@ export const AuthFormInput =({label, keyboardType, secureTextEntry, isDate, onPr
 
         setSelectedDate(date);
         setOpen(false);
+        const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const dateString = formattedDate.toISOString().split("T")[0];
+        onPressFromInterface(dateString);
     };
 
     return (
@@ -47,8 +50,10 @@ export const AuthFormInput =({label, keyboardType, secureTextEntry, isDate, onPr
                                keyboardType={keyboardType}
                                secureTextEntry={secureTextEntry && !isPasswordVisible}
                                onChangeText={(text) => onPressFromInterface(text)}
-                                editable={!isDate}
-                               value={selectedDate ? selectedDate.toLocaleDateString("es-ES", { day: "2-digit", year: "numeric", month: "2-digit" }) : ""}/>
+                               editable={!isDate}
+                               value={isDate?
+                                   selectedDate ? selectedDate.toLocaleDateString("es-ES", { day: "2-digit", year: "numeric", month: "2-digit" }) : ""
+                                :  undefined }/>
                     {isDate ?
                         <Pressable onPress={() => setOpen(true)}>
                             <Image source={require("../../../../assets/icons/calendar.png")} style={stylesAuthFormInput.eyeIcon}/>

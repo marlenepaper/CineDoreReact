@@ -10,12 +10,24 @@ import ViewModel from "./ViewModel";
 import {useEffect} from "react";
 
 function RegisterScreen({navigation}:PropsStackNavigation) {
-    const {register, firstName, lastName, password, repeatPassword, name, phone, birthdate, email, identification, onChangeRegister, errorMessage} = ViewModel.RegisterViewModel()
+    const {register, firstName, lastName, password, repeatPassword, name, phone, birthdate, email, identification, onChangeRegister, errorMessage, success} = ViewModel.RegisterViewModel()
     useEffect(() =>{
         if (errorMessage != ""){
             ToastAndroid.show(errorMessage, ToastAndroid.LONG)
         }
     }, [errorMessage])
+
+    const handleRegister = async () => {
+        await register()
+        if (success){
+            ToastAndroid.show("Cuenta creada con éxito", ToastAndroid.SHORT);
+            navigation.navigate("LoginScreen")
+        }else {
+            ToastAndroid.show("Error en el registro", ToastAndroid.SHORT);
+        }
+    }
+
+
     return(
             <ScrollView style={stylesRegister.mainContainer}
                         contentContainerStyle={{flexGrow: 1}}>
@@ -35,12 +47,12 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                         <AuthFormInput label={"Dirección de correo electrónico*"}
                                        keyboardType={"email-address"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={(text) =>{onChangeRegister('email', text)}}/>
+                                       onPressFromInterface={(text) =>onChangeRegister('email', text)}/>
                         <View>
                             <AuthFormInput label={"Contraseña*"}
                                            keyboardType={"default"}
                                            secureTextEntry={true}
-                                           onPressFromInterface={(text) =>{onChangeRegister('password', text)}}>
+                                           onPressFromInterface={(text) =>onChangeRegister('password', text)}>
                             </AuthFormInput>
                             <View style={stylesRegister.textPasswordContainer}>
                                 <Text style={stylesRegister.textPassword}>Tu contraseña debe tener:</Text>
@@ -49,7 +61,7 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                             <AuthFormInput label={"Repetir contraseña*"}
                                            keyboardType={"default"}
                                            secureTextEntry={true}
-                                           onPressFromInterface={(text) =>{onChangeRegister('repeatPassword', text)}}>
+                                           onPressFromInterface={(text) =>onChangeRegister('repeatPassword', text)}>
                             </AuthFormInput>
                         </View>
 
@@ -57,24 +69,24 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                         <AuthFormInput label={"Nombre*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={(text) =>{onChangeRegister('firstName', text)}}/>
+                                       onPressFromInterface={(text) =>onChangeRegister('firstName', text)}/>
                         <AuthFormInput label={"Apellidos*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={(text) =>{onChangeRegister('lastName', text)}}/>
+                                       onPressFromInterface={(text) =>onChangeRegister('lastName', text)}/>
                         <AuthFormInput label={"Fecha de nacimiento*"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
                                        isDate={true}
-                                       onPressFromInterface={(text) =>{onChangeRegister('birthdate', text)}}/>
+                                       onPressFromInterface={(text) =>onChangeRegister('birthdate', text)}/>
                         <AuthFormInput label={"Teléfono"}
                                        keyboardType={"phone-pad"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={(text) =>{onChangeRegister('phone', text)}}/>
+                                       onPressFromInterface={(text) =>onChangeRegister('phone', text)}/>
                         <AuthFormInput label={"DNI/NIE/Pasaporte"}
                                        keyboardType={"default"}
                                        secureTextEntry={false}
-                                       onPressFromInterface={(text) =>{onChangeRegister('identification', text)}}/>
+                                       onPressFromInterface={(text) =>onChangeRegister('identification', text)}/>
                         <View>
                             <Text style={stylesRegister.compulsoryText}>* Indica un campo obligatorio</Text>
                             <Text style={stylesRegister.rightsText}>Al seleccionar <Text style={{...stylesRegister.highlightText, textDecorationLine: "none"}}>Crear Cuenta</Text> confirma que es mayor de edad,
@@ -87,7 +99,7 @@ function RegisterScreen({navigation}:PropsStackNavigation) {
                                 <Text style={stylesRegister.highlightText}> Polítiva de privacidad</Text>.
                             </Text>
                         </View>
-                        <AuthButton textButton={"Crear cuenta"} onPressFromInterface={() => {register()}}/>
+                        <AuthButton textButton={"Crear cuenta"} onPressFromInterface={() => {handleRegister()}}/>
 
                         <View style={stylesRegister.loginTextContainer}>
                             <Text style={stylesRegister.rightsText}>¿Ya tienes cuenta? <Text

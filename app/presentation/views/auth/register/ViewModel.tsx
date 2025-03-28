@@ -1,15 +1,10 @@
 import React from "react";
 import {RegisterAuthUseCase} from "../../../../domain/useCases/auth/Register";
-import {LoginAuthUseCase} from "../../../../domain/useCases/auth/Login";
-import {saveUserUseCase} from "../../../../domain/useCases/userLocal/SaveUser";
-import {UserRegisterRequestDTO} from "../../../../domain/entities/UserRegisterRequestDTO";
-import {useUserLocalStorage} from "../../../hooks/useUserLocalStorage";
-import {LoginRequestDTO} from "../../../../domain/entities/LoginRequestDTO";
-
-
+import {ToastAndroid} from "react-native";
 
 const RegisterViewModel = () =>{
     const [errorMessage, setErrorMessage] = React.useState<string>("");
+    const [success, setSuccess] = React.useState<boolean>(false);
     const [values, setValues] = React.useState({
         firstName: "",
         lastName: "",
@@ -26,7 +21,7 @@ const RegisterViewModel = () =>{
         setValues({...values, [property]: value});
     }
     const register= async () =>{
-        const dataSend: UserRegisterRequestDTO = {
+        const dataSend = {
             nombre: values.firstName,
             apellidos: values.lastName,
             correoElectronico: values.email,
@@ -34,9 +29,11 @@ const RegisterViewModel = () =>{
             fechaNacimiento: values.birthdate,
             telefono: values.phone,
             identificacion: values.identification}
+        console.log(dataSend)
         if (validateForm()){
             const response = await RegisterAuthUseCase(dataSend);
             console.log("RESULT: " + JSON.stringify(response));
+            setSuccess(true)
         }
     }
     const validateForm = () =>{
@@ -71,7 +68,7 @@ const RegisterViewModel = () =>{
         onChangeRegister,
         register,
         errorMessage,
-
+        success
     }
 }
 
