@@ -1,12 +1,20 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome, Feather, Ionicons } from 'react-native-vector-icons';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 // Importa las pantallas desde tu estructura
 import HomeScreen from '../views/mainNav/home/Home';
 import UserProfileScreen from '../views/mainNav/userProfile/UserProfile';
 import TicketListScreen from "../views/mainNav/ticketsList/TicketList";
 
-const Tab = createBottomTabNavigator();
+// Define los tipos para la navegación del TabNavigator
+export type RootTabParamList = {
+    HomeScreen: undefined;
+    TicketListScreen: undefined;
+    UserProfileScreen: undefined;
+};
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export const TabNavigator = () => {
     return (
@@ -24,26 +32,28 @@ export const TabNavigator = () => {
                     shadowOpacity: 0.1,
                     shadowRadius: 4,
                     elevation: 5,
-                    marginHorizontal:13,
-                    paddingTop:6
+                    marginHorizontal: 13,
+                    paddingTop: 6
                 },
                 tabBarLabelStyle: {
                     fontSize: 12,
                     fontWeight: '600',
-                    marginTop:4
+                    marginTop: 4
                 },
-            }}><Tab.Screen
-            name="Cartelera"
-            component={HomeScreen}
-            options={{
-                tabBarLabel: "Cartelera",
-                tabBarIcon: ({ color }) => (
-                    <FontAwesome name="film" size={25} color={color} />
-                )
             }}
-        />
+        >
             <Tab.Screen
-                name="Entradas"
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{
+                    tabBarLabel: "Cartelera",
+                    tabBarIcon: ({ color }) => (
+                        <FontAwesome name="film" size={25} color={color} />
+                    )
+                }}
+            />
+            <Tab.Screen
+                name="TicketListScreen"
                 component={TicketListScreen}
                 options={{
                     tabBarLabel: "Entradas",
@@ -53,7 +63,7 @@ export const TabNavigator = () => {
                 }}
             />
             <Tab.Screen
-                name="Perfil"
+                name="UserProfileScreen"
                 component={UserProfileScreen}
                 options={{
                     tabBarLabel: "Perfil",
