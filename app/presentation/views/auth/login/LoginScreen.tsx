@@ -9,7 +9,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import LoginViewModel from "./ViewModel";
 import {useEffect} from "react";
 function LoginScreen({navigation}:PropsStackNavigation) {
-    const {email, password, errorMessage, onChangeLogin, login, success} = LoginViewModel()
+    const {email, password, errorMessage, onChangeLogin, login, success, user} = LoginViewModel()
     useEffect(() =>{
         if (errorMessage != ""){
             ToastAndroid.show(errorMessage, ToastAndroid.LONG)
@@ -20,11 +20,17 @@ function LoginScreen({navigation}:PropsStackNavigation) {
         await login()
         if (success){
             ToastAndroid.show("Iniciado sesión con éxito", ToastAndroid.SHORT);
-            navigation.replace("HomeScreen")
+            navigation.navigate("HomeScreen")
         }else {
             ToastAndroid.show("Error en el login", ToastAndroid.SHORT);
         }
     }
+
+    useEffect(() =>{
+        if (user && user.token){
+            navigation.replace("HomeScreen")
+        }
+    })
 
     return(
         <View style={stylesLogin.mainContainer}>

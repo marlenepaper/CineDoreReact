@@ -1,5 +1,4 @@
 
-import { LoginRequestDTO } from "../../domain/entities/LoginRequestDTO";
 import { UserLocalRepository } from "../../domain/repositories/UserLocalRepository";
 import { LocalStorage } from "../sources/local/LocalStorage";
 import { ApiDelivery } from "../sources/remote/api/ApiDelivery";
@@ -14,10 +13,10 @@ export class UserLocalRepositoryImpl implements UserLocalRepository {
         await save("cine_dore_usuario", JSON.stringify(user));
     }
 
-    async getUser(): Promise<LoginRequestDTO> {
+    async getUser(): Promise<RegisterResponse> {
         const { getUser } = LocalStorage();
         const data = await getUser("cine_dore_usuario");
-        return JSON.parse(data as any) as LoginRequestDTO;
+        return JSON.parse(data as any) as RegisterResponse;
     }
 
     async deleteUser(): Promise<void> {
