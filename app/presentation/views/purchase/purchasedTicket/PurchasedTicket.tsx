@@ -20,10 +20,16 @@ function PurchasedTicketScreen() {
     return (
         <View style={stylesPurchasedTicket.mainContainer}>
             <ImageBackground
-                source={require("../../../../../assets/images/img_pelicula.png")}
+                source={
+                    pelicula?.imagenPoster
+                        ? { uri: pelicula.imagenPoster }
+                        : require("../../../../../assets/backgrounds/image_error.png")
+                }
                 style={stylesPurchasedTicket.image}
-                resizeMode={"cover"}
+                resizeMode="cover"
             />
+
+
             <LinearGradient
                 colors={["transparent", AppColors.tertiary_dark, AppColors.tertiary_dark]}
                 start={{ x: 0, y: 0 }}

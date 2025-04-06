@@ -40,10 +40,15 @@ function MovieDetailsScreen() {
     return (
         <View style={stylesMovieDetails.mainContainer}>
             <ImageBackground
-                source={require("../../../../../assets/images/img_pelicula.png")}
+                source={
+                    movie?.imagenPoster
+                        ? { uri: movie.imagenPoster }
+                        : require("../../../../../assets/backgrounds/image_error.png")
+                }
                 style={stylesMovieDetails.image}
-                resizeMode={"cover"}
+                resizeMode="cover"
             />
+
 
             <View style={stylesMovieDetails.backContainer}>
                 <TouchableOpacity style={stylesMovieDetails.backTouchable} onPress={() => navigation.goBack()}>

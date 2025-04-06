@@ -55,10 +55,15 @@ function TicketSelectionScreen() {
     return (
         <View style={styles.mainContainer}>
             <ImageBackground
-                source={require("../../../../../assets/images/img_pelicula.png")}
+                source={
+                    pelicula?.imagenPoster
+                        ? { uri: pelicula.imagenPoster }
+                        : require("../../../../../assets/backgrounds/image_error.png")
+                }
                 style={styles.image}
-                resizeMode={"cover"}
+                resizeMode="cover"
             />
+
             <View style={styles.backContainer}>
                 <TouchableOpacity style={styles.backTouchable} onPress={() => navigation.goBack()}>
                     <BackArrow />
