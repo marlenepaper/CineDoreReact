@@ -29,8 +29,9 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
     };
 
     // Formato del nombre si existe
-    const nombreFormateado =
-        user?.nombre.charAt(0).toUpperCase() + user?.nombre.slice(1).toLowerCase();
+    const nombreFormateado = user?.nombre
+        ? user.nombre.charAt(0).toUpperCase() + user.nombre.slice(1).toLowerCase()
+        : "";
 
     const estaLogueado = !!user?.token;
 
