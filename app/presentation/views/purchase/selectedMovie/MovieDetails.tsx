@@ -8,15 +8,18 @@ import { ScheduleData } from "../../../componentes/movies/ScheduleData";
 import stylesMovieDetails from "./StyleMovieDetails";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../../App";
 import { GetPeliculaByIdUseCase } from "../../../../domain/useCases/peliculas/GetPeliculaByIdUseCase";
 import { PeliculaDTO } from "../../../../domain/entities/PeliculaDTO";
 
+// Tipado de navegación
 type MovieDetailsRouteProp = RouteProp<RootStackParamList, "MovieDetailsScreen">;
+type NavigationType = NativeStackNavigationProp<RootStackParamList, "MovieDetailsScreen">;
 
 function MovieDetailsScreen() {
     const route = useRoute<MovieDetailsRouteProp>();
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationType>();
     const { id } = route.params;
 
     const [chosen, setChosen] = useState(true);
@@ -37,7 +40,7 @@ function MovieDetailsScreen() {
     return (
         <View style={stylesMovieDetails.mainContainer}>
             <ImageBackground
-                source={require("../../../../../assets/images/img_pelicula.png")} // podrías usar movie.imagenPoster si está disponible
+                source={require("../../../../../assets/images/img_pelicula.png")}
                 style={stylesMovieDetails.image}
                 resizeMode={"cover"}
             />
@@ -57,7 +60,6 @@ function MovieDetailsScreen() {
             />
 
             <View style={stylesMovieDetails.infoContainer}>
-                {/* Tabs */}
                 <LinearGradient
                     colors={[AppColors.secondary, AppColors.secondary_dark]}
                     start={{ x: 0, y: 0 }}
@@ -80,7 +82,6 @@ function MovieDetailsScreen() {
                     </View>
                 </LinearGradient>
 
-                {/* Contenido dinámico */}
                 <View style={{ position: "relative", height: 200 }}>
                     {chosen ? (
                         <View style={stylesMovieDetails.movieDetailsAll}>
@@ -100,7 +101,12 @@ function MovieDetailsScreen() {
                                         key={funcion.id}
                                         date={funcion.fechaHora.split("T")[0]}
                                         time={funcion.fechaHora.split("T")[1].slice(0, 5)}
-                                        onPressFromInterface={() => {}}
+                                        onPressFromInterface={() =>
+                                            navigation.navigate("TicketSelectionScreen", {
+                                                funcionId: funcion.id,
+                                                peliculaId: movie.id,
+                                            })
+                                        }
                                     />
                                 ))}
                             </View>
