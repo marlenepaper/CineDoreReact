@@ -14,4 +14,15 @@ export class PeliculaRepositoryImpl implements PeliculasRepository {
             return Promise.resolve([]);
         }
     }
+
+    async getPeliculaById(id: number): Promise<PeliculaDTO | null> {
+        try {
+            const response = await ApiDelivery.get<PeliculaDTO>(`/peliculas/${id}`);
+            return response.data;
+        } catch (error) {
+            const e = error as AxiosError;
+            console.log("Error al obtener película por ID: ", JSON.stringify(e.response?.data));
+            return null;
+        }
+    }
 }
