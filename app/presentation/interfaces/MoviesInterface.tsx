@@ -5,7 +5,7 @@ export interface MovieBoxInterface{
     version: string,
     date: string,
     time: string,
-    room: number
+    room: string
 }
 
 export interface MovieDataInterface{

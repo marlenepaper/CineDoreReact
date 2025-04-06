@@ -50,8 +50,7 @@ const MovieBox = ({movie, color, fontScale = 1}: IMovieBoxProps) =>{
                 <Text style={{ ...stylesMovieBox.movieTimeText, fontSize: scaleFont(16), color: color, borderColor: color }}>
                     {movie.time}
                 </Text>
-                <Text style={{ ...stylesMovieBox.movieDateText, fontSize: scaleFont(16), paddingRight: 5, paddingLeft: 5 }}>
-                    Sala: <Text style={{ ...stylesMovieBox.regularText, fontSize: scaleFont(14), color: color }}> {movie.room}</Text>
+                <Text style={{ ...stylesMovieBox.movieDateText, fontSize: scaleFont(16), paddingRight: 5, paddingLeft: 5 }}><Text style={{ ...stylesMovieBox.regularText, fontSize: scaleFont(14), color: color }}> {movie.room}</Text>
                 </Text>
             </View>
         </View>
@@ -130,6 +129,7 @@ const stylesMovieBox = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 15,
     }
+
 })
 
 export default MovieBox;
