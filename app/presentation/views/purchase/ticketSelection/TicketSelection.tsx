@@ -23,6 +23,14 @@ function TicketSelectionScreen() {
 
     const [pelicula, setPelicula] = useState<PeliculaDTO | null>(null);
 
+    const [generalCount, setGeneralCount] = useState(0);
+    const [reducedCount, setReducedCount] = useState(0);
+    const [freeCount, setFreeCount] = useState(0);
+
+    const precioGeneral = 3;
+    const precioReducida = 2;
+    const total = generalCount * precioGeneral + reducedCount * precioReducida;
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await GetPeliculaByIdUseCase(peliculaId);
@@ -41,7 +49,7 @@ function TicketSelectionScreen() {
             version: pelicula.lenguaje,
             date: funcion.fechaHora.split("T")[0],
             time: funcion.fechaHora.split("T")[1].slice(0, 5),
-            room: funcion.sala,
+            room: funcion.sala, // string
         }
         : null;
 
@@ -58,7 +66,6 @@ function TicketSelectionScreen() {
                     <Text style={styles.backText}>Atrás</Text>
                 </TouchableOpacity>
             </View>
-
             <LinearGradient
                 colors={["transparent", AppColors.tertiary_dark, AppColors.tertiary_dark]}
                 start={{ x: 0, y: 0 }}
@@ -69,26 +76,36 @@ function TicketSelectionScreen() {
             <View style={styles.infoContainer}>
                 {movie && <MovieBox movie={movie} color={AppColors.white} />}
 
-                {/* Entradas */}
+                {/* PRECIOS */}
                 <View style={styles.pricesContainer}>
+                    {/* Entrada general */}
                     <View style={styles.ticketGeneralContainer}>
                         <Text style={styles.ticketTextLeft}>Entrada general</Text>
                         <Text style={styles.ticketText}>3 €</Text>
                         <View style={styles.addTicketContainer}>
-                            <Text style={styles.ticketText}>-</Text>
-                            <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>0</Text>
-                            <Text style={styles.ticketText}>+</Text>
+                            <TouchableOpacity onPress={() => setGeneralCount(Math.max(0, generalCount - 1))}>
+                                <Text style={styles.ticketText}>-</Text>
+                            </TouchableOpacity>
+                            <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{generalCount}</Text>
+                            <TouchableOpacity onPress={() => setGeneralCount(generalCount + 1)}>
+                                <Text style={styles.ticketText}>+</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
+                    {/* Entrada reducida */}
                     <View style={styles.ticketReducidoContainer}>
                         <View style={styles.ticketGeneralContainer}>
                             <Text style={styles.ticketTextLeft}>Entrada reducida</Text>
                             <Text style={styles.ticketText}>2 €</Text>
                             <View style={styles.addTicketContainer}>
-                                <Text style={styles.ticketText}>-</Text>
-                                <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>0</Text>
-                                <Text style={styles.ticketText}>+</Text>
+                                <TouchableOpacity onPress={() => setReducedCount(Math.max(0, reducedCount - 1))}>
+                                    <Text style={styles.ticketText}>-</Text>
+                                </TouchableOpacity>
+                                <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{reducedCount}</Text>
+                                <TouchableOpacity onPress={() => setReducedCount(reducedCount + 1)}>
+                                    <Text style={styles.ticketText}>+</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Text style={styles.textTicketCasos}>Estudiantes</Text>
@@ -98,27 +115,33 @@ function TicketSelectionScreen() {
                         <Text style={styles.textTicketCasos}>En situación de desempleo</Text>
                     </View>
 
+                    {/* Entrada gratuita */}
                     <View style={styles.ticketReducidoContainer}>
                         <View style={styles.ticketGeneralContainer}>
                             <Text style={styles.ticketTextLeft}>Entrada gratuita</Text>
                             <Text style={styles.ticketText}>0 €</Text>
                             <View style={styles.addTicketContainer}>
-                                <Text style={styles.ticketText}>-</Text>
-                                <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>0</Text>
-                                <Text style={styles.ticketText}>+</Text>
+                                <TouchableOpacity onPress={() => setFreeCount(Math.max(0, freeCount - 1))}>
+                                    <Text style={styles.ticketText}>-</Text>
+                                </TouchableOpacity>
+                                <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{freeCount}</Text>
+                                <TouchableOpacity onPress={() => setFreeCount(freeCount + 1)}>
+                                    <Text style={styles.ticketText}>+</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Text style={styles.textTicketCasos}>Menor de 18 años</Text>
-                        <Text style={styles.textTicketCasos}>Con discapacidad &gt;= 33% + Acompañante</Text>
+                        <Text style={styles.textTicketCasos}>Con discapacidad ≥ 33% + Acompañante</Text>
                     </View>
                 </View>
 
+                {/* TOTAL Y BOTONES */}
                 <View style={styles.totalBtnContainer}>
                     <View style={styles.totalContainer}>
                         <Text style={styles.totalText}>
                             Total <Text style={styles.ivaText}>(IVA incluido)</Text>
                         </Text>
-                        <Text style={styles.totalText}>0.00€</Text>
+                        <Text style={styles.totalText}>{total.toFixed(2)}€</Text>
                     </View>
                     <AuthButton textButton={"Comprar"} onPressFromInterface={() => {}} />
                     <AuthButtonUnfilled textButton={"Cancelar"} onPressFromInterface={() => navigation.goBack()} />
