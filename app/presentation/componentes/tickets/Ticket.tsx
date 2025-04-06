@@ -1,94 +1,50 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
-import { useEffect, useState } from "react";
 import MovieBox from "../movies/MovieBox";
 import { AppColors, AppFonts } from "../../theme/AppTheme";
-import { PeliculaDTOInterface } from "../../interfaces/MoviesInterface"; // Interfaz para película
+import { PeliculaDTO } from "../../../domain/entities/PeliculaDTO";
+import { FuncionDTO } from "../../../domain/entities/FuncionDTO";
 
-const Ticket = () => {
-    const [movie, setMovie] = useState<PeliculaDTOInterface | null>(null); // Estado para almacenar la película
-    const [isLoading, setIsLoading] = useState<boolean>(true); // Estado para manejar la carga de datos
-    const [error, setError] = useState<string | null>(null); // Para manejar errores
+interface Props {
+    pelicula: PeliculaDTO;
+    funcion: FuncionDTO;
+    totalEntradas: number;
+}
 
-    const selectedFunctionId = 1; // Este sería el ID de la función seleccionada por el usuario, por ejemplo.
-
-    useEffect(() => {
-        // Realizamos la llamada al backend cuando el componente se monta
-        const fetchMovieData = async () => {
-            try {
-                const response = await fetch('https://api.example.com/movie/1'); // Reemplaza con la URL real de la API
-                if (!response.ok) {
-                    throw new Error('Error al cargar los datos');
-                }
-                const movieData: PeliculaDTOInterface = await response.json();
-                setMovie(movieData);
-            } catch (error: unknown) {
-                // Verificación del tipo del error
-                if (error instanceof Error) {
-                    setError(error.message); // Acceder a error.message si es un objeto de tipo Error
-                } else {
-                    setError('Error desconocido');
-                }
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchMovieData();
-    }, []); // Se ejecuta solo cuando el componente se monta
-
-    if (isLoading) {
-        return (
-            <View style={stylesTicket.mainContainer}>
-                <Text style={stylesTicket.amountText}>Cargando...</Text>
-            </View>
-        );
-    }
-
-    if (error) {
-        return (
-            <View style={stylesTicket.mainContainer}>
-                <Text style={stylesTicket.amountText}>Error: {error}</Text>
-            </View>
-        );
-    }
-
-    if (!movie) {
-        return (
-            <View style={stylesTicket.mainContainer}>
-                <Text style={stylesTicket.amountText}>Película no encontrada</Text>
-            </View>
-        );
-    }
+const Ticket = ({ pelicula, funcion, totalEntradas }: Props) => {
+    const movie = {
+        age: parseInt(pelicula.clasificacion),
+        name: pelicula.nombre,
+        duration: `${pelicula.duracion} min`,
+        version: pelicula.lenguaje,
+        date: funcion.fechaHora.split("T")[0],
+        time: funcion.fechaHora.split("T")[1].slice(0, 5),
+        room: funcion.sala,
+    };
 
     return (
-        <View style={stylesTicket.mainContainer}>
+        <View style={styles.mainContainer}>
             <ImageBackground
                 source={require("../../../../assets/images/ticket.png")}
                 resizeMode={"contain"}
-                style={stylesTicket.ticketContainer}
+                style={styles.ticketContainer}
             >
-                <View style={stylesTicket.qrContainer}>
+                <View style={styles.qrContainer}>
                     <Image source={require("../../../../assets/images/qr.png")} />
                 </View>
 
-                <View style={stylesTicket.amountContainer}>
-                    <Text style={stylesTicket.amountText}>x3 entradas</Text>
+                <View style={styles.amountContainer}>
+                    <Text style={styles.amountText}>x{totalEntradas} entradas</Text>
                 </View>
 
-                <View style={stylesTicket.movieBoxContainer}>
-                    <MovieBox
-                        movie={movie} // Pasamos el objeto movie
-                        color={AppColors.black}
-                        fontScale={0.97}
-                        selectedFunctionId={selectedFunctionId} // Pasamos el ID de la función seleccionada
-                    />
+                <View style={styles.movieBoxContainer}>
+                    <MovieBox movie={movie} color={AppColors.black} fontScale={0.97} />
                 </View>
             </ImageBackground>
         </View>
     );
 };
 
-const stylesTicket = StyleSheet.create({
+const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         width: "100%",

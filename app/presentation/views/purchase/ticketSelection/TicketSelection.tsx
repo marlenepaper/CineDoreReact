@@ -22,7 +22,6 @@ function TicketSelectionScreen() {
     const { funcionId, peliculaId } = route.params;
 
     const [pelicula, setPelicula] = useState<PeliculaDTO | null>(null);
-
     const [generalCount, setGeneralCount] = useState(0);
     const [reducedCount, setReducedCount] = useState(0);
     const [freeCount, setFreeCount] = useState(0);
@@ -49,7 +48,7 @@ function TicketSelectionScreen() {
             version: pelicula.lenguaje,
             date: funcion.fechaHora.split("T")[0],
             time: funcion.fechaHora.split("T")[1].slice(0, 5),
-            room: funcion.sala, // string
+            room: funcion.sala,
         }
         : null;
 
@@ -76,9 +75,7 @@ function TicketSelectionScreen() {
             <View style={styles.infoContainer}>
                 {movie && <MovieBox movie={movie} color={AppColors.white} />}
 
-                {/* PRECIOS */}
                 <View style={styles.pricesContainer}>
-                    {/* Entrada general */}
                     <View style={styles.ticketGeneralContainer}>
                         <Text style={styles.ticketTextLeft}>Entrada general</Text>
                         <Text style={styles.ticketText}>3 €</Text>
@@ -93,7 +90,6 @@ function TicketSelectionScreen() {
                         </View>
                     </View>
 
-                    {/* Entrada reducida */}
                     <View style={styles.ticketReducidoContainer}>
                         <View style={styles.ticketGeneralContainer}>
                             <Text style={styles.ticketTextLeft}>Entrada reducida</Text>
@@ -110,12 +106,11 @@ function TicketSelectionScreen() {
                         </View>
                         <Text style={styles.textTicketCasos}>Estudiantes</Text>
                         <Text style={styles.textTicketCasos}>Familias numerosas</Text>
-                        <Text style={styles.textTicketCasos}>Grupos vinculados a instituciones culturales o educativas</Text>
+                        <Text style={styles.textTicketCasos}>Grupos culturales</Text>
                         <Text style={styles.textTicketCasos}>Mayores de 65 años</Text>
                         <Text style={styles.textTicketCasos}>En situación de desempleo</Text>
                     </View>
 
-                    {/* Entrada gratuita */}
                     <View style={styles.ticketReducidoContainer}>
                         <View style={styles.ticketGeneralContainer}>
                             <Text style={styles.ticketTextLeft}>Entrada gratuita</Text>
@@ -135,7 +130,6 @@ function TicketSelectionScreen() {
                     </View>
                 </View>
 
-                {/* TOTAL Y BOTONES */}
                 <View style={styles.totalBtnContainer}>
                     <View style={styles.totalContainer}>
                         <Text style={styles.totalText}>
@@ -143,7 +137,19 @@ function TicketSelectionScreen() {
                         </Text>
                         <Text style={styles.totalText}>{total.toFixed(2)}€</Text>
                     </View>
-                    <AuthButton textButton={"Comprar"} onPressFromInterface={() => {}} />
+
+                    <AuthButton
+                        textButton={"Comprar"}
+                        onPressFromInterface={() => {
+                            if (pelicula && funcion) {
+                                navigation.navigate("PurchasedTicketScreen", {
+                                    pelicula,
+                                    funcion,
+                                    totalEntradas: generalCount + reducedCount + freeCount,
+                                });
+                            }
+                        }}
+                    />
                     <AuthButtonUnfilled textButton={"Cancelar"} onPressFromInterface={() => navigation.goBack()} />
                 </View>
             </View>

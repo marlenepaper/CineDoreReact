@@ -18,6 +18,9 @@ import TicketListScreen from "./app/presentation/views/mainNav/ticketsList/Ticke
 import TheatreInfoScreen from "./app/presentation/views/mainNav/theatreInfo/TheatreInfo";
 import HomeScreen from "./app/presentation/views/mainNav/home/Home";
 import { TabNavigator } from "./app/presentation/navigation/TabNavigator";
+import { PeliculaDTO } from "./app/domain/entities/PeliculaDTO";
+import { FuncionDTO } from "./app/domain/entities/FuncionDTO";
+
 
 export type RootStackParamList = {
     SplashScreen: undefined;
@@ -30,7 +33,11 @@ export type RootStackParamList = {
     TheatreInfoScreen: undefined;
     MovieDetailsScreen: { id: number };
     TicketSelectionScreen: { funcionId: number; peliculaId: number };
-    PurchasedTicketScreen: undefined;
+    PurchasedTicketScreen: {
+        pelicula: PeliculaDTO;
+        funcion: FuncionDTO;
+        totalEntradas: number;
+    };
     HomeScreen: undefined;
 };
 
