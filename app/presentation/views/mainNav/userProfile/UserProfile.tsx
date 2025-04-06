@@ -12,17 +12,27 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
     const { user, getUserSession, deleteUserSession } = useUserLocalStorage();
 
     useEffect(() => {
-        getUserSession(); // Recupera datos del usuario al entrar
+        getUserSession();
     }, []);
 
     const handleLogout = async () => {
         await deleteUserSession();
-        navigation.replace("WelcomeScreen"); // o LoginScreen
+        navigation.replace("WelcomeScreen");
     };
 
-    const handleDeleteAccount = () => {
-        console.log("Eliminar cuenta (a implementar)");
+    const handleGoToLogin = () => {
+        navigation.replace("LoginScreen");
     };
+
+    const handleGoToRegister = () => {
+        navigation.replace("RegisterScreen");
+    };
+
+    // Formato del nombre si existe
+    const nombreFormateado =
+        user?.nombre.charAt(0).toUpperCase() + user?.nombre.slice(1).toLowerCase();
+
+    const estaLogueado = !!user?.token;
 
     return (
         <View style={styles.mainContainter}>
@@ -42,23 +52,26 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
                 <View style={styles.textContainer}>
                     <Text style={styles.textLineOne}>¡Hola!</Text>
                     <View style={styles.textContainterLineTwo}>
-                        <Text style={styles.textLineTwo}>Bienvenido, </Text>
-                        <Text style={styles.textLineTwo}>
-                            {user?.nombre
-                                ? user.nombre.charAt(0).toUpperCase() + user.nombre.slice(1).toLowerCase()
-                                : "Invitado"}
-                        </Text>
-
+                        <Text style={styles.textLineTwo}>Bienvenido</Text>
+                        {estaLogueado && <Text style={styles.textLineTwo}>, {nombreFormateado}</Text>}
                     </View>
                 </View>
 
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>
-                        <AuthButton textButton="Cerrar sesión" onPressFromInterface={handleLogout} />
+                        {estaLogueado ? (
+                            <AuthButton textButton="Cerrar sesión" onPressFromInterface={handleLogout} />
+                        ) : (
+                            <AuthButton textButton="Iniciar sesión" onPressFromInterface={handleGoToLogin} />
+                        )}
                     </View>
 
-                    <Pressable onPress={handleDeleteAccount}>
-                        <Text style={styles.deleteAccount}>Eliminar cuenta</Text>
+                    <Pressable
+                        onPress={estaLogueado ? () => console.log("Eliminar cuenta") : handleGoToRegister}
+                    >
+                        <Text style={styles.deleteAccount}>
+                            {estaLogueado ? "Eliminar cuenta" : "Crear tu cuenta"}
+                        </Text>
                     </Pressable>
                 </View>
             </View>
@@ -102,6 +115,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         color: "white",
+        marginLeft: 4,
     },
     buttonsContainer: {
         alignItems: "center",
