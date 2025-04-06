@@ -1,28 +1,38 @@
-import {PropsStackNavigation} from "../../../interfaces/StackNav";
-import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {LinearGradient} from "expo-linear-gradient";
-import {AppColors} from "../../../theme/AppTheme";
+import { PropsStackNavigation } from "../../../interfaces/StackNav";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { AppColors } from "../../../theme/AppTheme";
 import stylesRegister from "../../auth/register/StylesRegister";
 import BgImage from "../../../../../assets/images/imagen-fondo-flor.svg";
-import {AuthButton} from "../../../componentes/auth/AuthButton";
-
+import { AuthButton } from "../../../componentes/auth/AuthButton";
+import { useUserLocalStorage } from "../../../hooks/useUserLocalStorage";
+import { useEffect } from "react";
 
 function UserProfileScreen({ navigation }: PropsStackNavigation) {
+    const { user, getUserSession, deleteUserSession } = useUserLocalStorage();
 
-    const handleLogout = () => {
-        // Lógica para cerrar sesión
-        console.log("Cerrando sesión...");
+    useEffect(() => {
+        getUserSession(); // Recupera datos del usuario al entrar
+    }, []);
+
+    const handleLogout = async () => {
+        await deleteUserSession();
+        navigation.replace("WelcomeScreen"); // o LoginScreen
     };
 
     const handleDeleteAccount = () => {
-        // Lógica para eliminar cuenta
-        console.log("Eliminando cuenta...");
+        console.log("Eliminar cuenta (a implementar)");
     };
 
     return (
         <View style={styles.mainContainter}>
             <LinearGradient
-                colors={[AppColors.bg_input_dark, AppColors.bg_input_dark, AppColors.prueba_claro, AppColors.prueba_claro]}
+                colors={[
+                    AppColors.bg_input_dark,
+                    AppColors.bg_input_dark,
+                    AppColors.prueba_claro,
+                    AppColors.prueba_claro,
+                ]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={stylesRegister.mainGradient}
@@ -33,12 +43,16 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
                     <Text style={styles.textLineOne}>¡Hola!</Text>
                     <View style={styles.textContainterLineTwo}>
                         <Text style={styles.textLineTwo}>Bienvenido, </Text>
-                        <Text style={styles.textLineTwo}>Luis</Text>
+                        <Text style={styles.textLineTwo}>
+                            {user?.nombre
+                                ? user.nombre.charAt(0).toUpperCase() + user.nombre.slice(1).toLowerCase()
+                                : "Invitado"}
+                        </Text>
+
                     </View>
                 </View>
 
                 <View style={styles.buttonsContainer}>
-
                     <View style={styles.button}>
                         <AuthButton textButton="Cerrar sesión" onPressFromInterface={handleLogout} />
                     </View>
@@ -47,7 +61,6 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
                         <Text style={styles.deleteAccount}>Eliminar cuenta</Text>
                     </Pressable>
                 </View>
-
             </View>
         </View>
     );
@@ -66,41 +79,38 @@ const styles = StyleSheet.create({
         width: "80%",
         height: "100%",
         right: -250,
-        top:100
+        top: 100,
     },
     contentContainer: {
         zIndex: 2,
         flex: 1,
         width: "85%",
     },
-    textContainer:{
-
+    textContainer: {
         flex: 1,
-
     },
     textLineOne: {
         fontSize: 20,
         fontWeight: "bold",
         color: "white",
-        marginTop:141,
+        marginTop: 141,
     },
-    textContainterLineTwo:{
-        flexDirection: "row"
+    textContainterLineTwo: {
+        flexDirection: "row",
     },
     textLineTwo: {
         fontSize: 20,
         fontWeight: "bold",
         color: "white",
     },
-    buttonsContainer:{
+    buttonsContainer: {
         alignItems: "center",
         flex: 1,
         justifyContent: "flex-end",
-        marginBottom:110
+        marginBottom: 110,
     },
-    button:{
+    button: {
         width: "100%",
-
     },
     deleteAccount: {
         fontSize: 14,
