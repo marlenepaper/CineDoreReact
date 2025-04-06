@@ -46,7 +46,7 @@ function PurchasedTicketScreen() {
             <View style={stylesPurchasedTicket.btnContainer}>
                 <AuthButton
                     textButton={"Finalizar compra"}
-                    onPressFromInterface={() => navigation.navigate("HomeScreen")}
+                    onPressFromInterface={() => navigation.navigate("TabNavigator")}
                 />
             </View>
         </View>

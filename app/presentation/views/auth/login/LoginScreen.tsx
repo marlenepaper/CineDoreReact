@@ -20,7 +20,7 @@ function LoginScreen({navigation}:PropsStackNavigation) {
         await login()
         if (success){
             ToastAndroid.show("Iniciado sesión con éxito", ToastAndroid.SHORT);
-            navigation.navigate("HomeScreen")
+            navigation.navigate("TabNavigator")
         }else {
             ToastAndroid.show("Error en el login", ToastAndroid.SHORT);
         }
@@ -28,7 +28,7 @@ function LoginScreen({navigation}:PropsStackNavigation) {
 
     useEffect(() =>{
         if (user && user.token){
-            navigation.replace("HomeScreen")
+            navigation.replace("TabNavigator")
         }
     })
 
