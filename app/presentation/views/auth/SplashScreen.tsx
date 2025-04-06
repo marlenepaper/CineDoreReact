@@ -7,13 +7,28 @@ import {AppColors} from "../../theme/AppTheme";
 import stylesRegister from "./register/StylesRegister";
 import {LinearGradient} from "expo-linear-gradient";
 import ImageSplash from "../../../../assets/images/imagen-splash.svg"
+import {UserLocalRepositoryImpl} from "../../../data/repositories/UserLocalRepository";
 
-function SplashScreen({navigation}:PropsStackNavigation) {
+function SplashScreen({ navigation }: PropsStackNavigation) {
     useEffect(() => {
-        const timer = setTimeout(() =>{
-            navigation.replace("WelcomeScreen")
-        }, 5000)
-        return () => {clearTimeout(timer)}
+        const checkSession = async () => {
+            try {
+                const userLocal = new UserLocalRepositoryImpl();
+                const user = await userLocal.getUser(); // 👈 usamos tu lógica
+
+                setTimeout(() => {
+                    if (user?.token) {
+                        navigation.replace("TabNavigator");
+                    } else {
+                        navigation.replace("WelcomeScreen");
+                    }
+                }, 2500);
+            } catch (error) {
+                navigation.replace("WelcomeScreen");
+            }
+        };
+
+        checkSession();
     }, []);
     return(
         <View style={stylesSplash.bgContainer}>
