@@ -28,7 +28,7 @@ export type RootStackParamList = {
     TicketListScreen: undefined;
     UserProfileScreen: undefined;
     TheatreInfoScreen: undefined;
-    MovieDetailsScreen: undefined;
+    MovieDetailsScreen: { id: number };
     TicketSelectionScreen: undefined;
     PurchasedTicketScreen: undefined;
     HomeScreen: undefined;
