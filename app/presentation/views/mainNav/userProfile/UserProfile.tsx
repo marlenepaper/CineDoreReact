@@ -1,15 +1,20 @@
 import { PropsStackNavigation } from "../../../interfaces/StackNav";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {Pressable, Text, ToastAndroid, View} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppColors } from "../../../theme/AppTheme";
 import stylesRegister from "../../auth/register/StylesRegister";
 import BgImage from "../../../../../assets/images/imagen-fondo-flor.svg";
 import { AuthButton } from "../../../componentes/auth/AuthButton";
 import { useUserLocalStorage } from "../../../hooks/useUserLocalStorage";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
+import stylesUserProfile from "./StylesUser";
+import UserProfileViewModel from "./ViewModel";
+import {StandardModal} from "../../../componentes/modals/StandardModal";
 
 function UserProfileScreen({ navigation }: PropsStackNavigation) {
     const { user, getUserSession, deleteUserSession } = useUserLocalStorage();
+    const {deleteUserProfile} = UserProfileViewModel()
+    const [isModalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         getUserSession();
@@ -28,6 +33,23 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
         navigation.replace("RegisterScreen");
     };
 
+    const handleRemoveAccount = async () =>{
+        if (user && user.token){
+            const response = await deleteUserProfile(user.token)
+            if (response !== null ){
+                await handleLogout();
+                setTimeout(() => {
+                    ToastAndroid.show(JSON.stringify(response), ToastAndroid.SHORT)
+                }, 1000)
+            }
+
+        }
+    }
+
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+
     // Formato del nombre si existe
     const nombreFormateado = user?.nombre
         ? user.nombre.charAt(0).toUpperCase() + user.nombre.slice(1).toLowerCase()
@@ -36,7 +58,7 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
     const estaLogueado = !!user?.token;
 
     return (
-        <View style={styles.mainContainter}>
+        <View style={stylesUserProfile.mainContainter}>
             <LinearGradient
                 colors={[
                     AppColors.bg_input_dark,
@@ -48,18 +70,18 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
                 end={{ x: 1, y: 1 }}
                 style={stylesRegister.mainGradient}
             />
-            <BgImage style={styles.bgImage} />
-            <View style={styles.contentContainer}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.textLineOne}>¡Hola!</Text>
-                    <View style={styles.textContainterLineTwo}>
-                        <Text style={styles.textLineTwo}>Bienvenido</Text>
-                        {estaLogueado && <Text style={styles.textLineTwo}>, {nombreFormateado}</Text>}
+            <BgImage style={stylesUserProfile.bgImage} />
+            <View style={stylesUserProfile.contentContainer}>
+                <View style={stylesUserProfile.textContainer}>
+                    <Text style={stylesUserProfile.textLineOne}>¡Hola!</Text>
+                    <View style={stylesUserProfile.textContainterLineTwo}>
+                        <Text style={stylesUserProfile.textLineTwo}>Bienvenido</Text>
+                        {estaLogueado && <Text style={stylesUserProfile.textLineTwo}>, {nombreFormateado}</Text>}
                     </View>
                 </View>
 
-                <View style={styles.buttonsContainer}>
-                    <View style={styles.button}>
+                <View style={stylesUserProfile.buttonsContainer}>
+                    <View style={stylesUserProfile.button}>
                         {estaLogueado ? (
                             <AuthButton textButton="Cerrar sesión" onPressFromInterface={handleLogout} />
                         ) : (
@@ -68,72 +90,25 @@ function UserProfileScreen({ navigation }: PropsStackNavigation) {
                     </View>
 
                     <Pressable
-                        onPress={estaLogueado ? () => console.log("Eliminar cuenta") : handleGoToRegister}
+                        onPress={estaLogueado ? () => setModalVisible(true) : handleGoToRegister}
                     >
-                        <Text style={styles.deleteAccount}>
+                        <Text style={stylesUserProfile.deleteAccount}>
                             {estaLogueado ? "Eliminar cuenta" : "Crear tu cuenta"}
                         </Text>
                     </Pressable>
                 </View>
             </View>
+
+            {isModalVisible && (
+                <StandardModal
+                    tile={"¿Confirmar la eliminación?"}
+                    onClose={closeModal}
+                    onSubmit={handleRemoveAccount}
+                />
+            )}
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    mainContainter: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: AppColors.bg_input_dark,
-    },
-    bgImage: {
-        zIndex: 1,
-        position: "absolute",
-        width: "80%",
-        height: "100%",
-        right: -250,
-        top: 100,
-    },
-    contentContainer: {
-        zIndex: 2,
-        flex: 1,
-        width: "85%",
-    },
-    textContainer: {
-        flex: 1,
-    },
-    textLineOne: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
-        marginTop: 141,
-    },
-    textContainterLineTwo: {
-        flexDirection: "row",
-    },
-    textLineTwo: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
-        marginLeft: 4,
-    },
-    buttonsContainer: {
-        alignItems: "center",
-        flex: 1,
-        justifyContent: "flex-end",
-        marginBottom: 110,
-    },
-    button: {
-        width: "100%",
-    },
-    deleteAccount: {
-        fontSize: 14,
-        fontWeight: "bold",
-        marginTop: 40,
-        color: "white",
-        textDecorationLine: "underline",
-    },
-});
 
 export default UserProfileScreen;

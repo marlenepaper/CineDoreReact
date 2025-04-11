@@ -8,6 +8,7 @@ export interface AuthRepository {
     //tipo asincrona, una vez que se conecta, se ejecuta...
     register:(user : UserRegisterRequestDTO) => Promise<ApiDeliveryResponse>
     login:(user : LoginRequestDTO) => Promise<RegisterResponse>
+    deleteUser:(token: string) => Promise<String>
 
 }
 

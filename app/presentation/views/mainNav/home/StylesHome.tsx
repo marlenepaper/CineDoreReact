@@ -36,11 +36,9 @@ const stylesHome = StyleSheet.create({
     logoMinisterio: {},
     logoFilmoteca: {},
     carousel:{
-        flex: 1,
-        alignItems: "center",
         justifyContent: "center",
         borderRadius: 25,
-        marginTop: 30,
+        marginTop: 30
     },
     moviesContainer:{
         flex: 1,

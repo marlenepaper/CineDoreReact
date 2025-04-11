@@ -6,7 +6,6 @@ import {RegisterResponse} from "../../../../domain/entities/UserRegisterResponse
 
 const LoginViewModel = () =>{
     const [errorMessage, setErrorMessage] = React.useState<string>("");
-    const [success, setSuccess] = React.useState<boolean>(false);
     const [values, setValues] = React.useState({
         email: "",
         password: "",
@@ -31,9 +30,10 @@ const LoginViewModel = () =>{
             const response = await LoginAuthUseCase(dataSend);
             await saveUserUseCase(response as RegisterResponse);
             //para almacenar el error y decirle que ha cambiado el estado
-            await getUserSession()
-            setSuccess(true)
             console.log("RESULT: " + JSON.stringify(response));
+            await getUserSession()
+            return response
+
         }
     }
     const validateForm = () =>{
@@ -53,7 +53,6 @@ const LoginViewModel = () =>{
         login,
         errorMessage,
         user,
-        success
     }
 
 }

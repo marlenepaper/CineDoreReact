@@ -28,4 +28,22 @@ export class AuthRepositoryImpl implements AuthRepository {
             return Promise.resolve(JSON.parse(JSON.stringify(e.response?.data)) as RegisterResponse);
         }
     }
+
+    async deleteUser(token: string): Promise<String> {
+        try{
+            const response = await ApiDelivery.delete("/usuarios/delete",
+                {headers: {
+                    Authorization: `Bearer ${token}`
+                    }});
+            return Promise.resolve(response.data);
+        }catch (error){
+            let e = error as AxiosError;
+            console.log("Error: " + JSON.stringify(e.response?.data));
+            if (e.response?.data) {
+                return JSON.stringify(e.response?.data);
+            } else {
+                return "Hubo un error desconocido al intentar eliminar la cuenta.";
+            }
+        }
+    }
 }

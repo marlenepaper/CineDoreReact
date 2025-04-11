@@ -90,16 +90,18 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                 {/* Carrusel */}
                 <GestureHandlerRootView style={stylesHome.carousel}>
                     <View>
-                        <Carousel
-                            loop={true}
-                            width={width}
-                            height={250}
-                            autoPlay={false}
-                            data={carousel}
-                            scrollAnimationDuration={1000}
-                            renderItem={({ item }) => (
-                                <CarouselItem height={247} width={width - 40} movieItem={item} />
-                            )}
+                        <FlatList data={carousel}
+                                  horizontal={true} pagingEnabled         // 🔥 Esto hace que se desplace de uno en uno
+                                  snapToAlignment="center"
+                                  decelerationRate="fast"
+                                  showsHorizontalScrollIndicator={false}
+                                  keyExtractor={(item, index) => index.toString()}
+                                  renderItem={({ item }) => (
+                                      <CarouselItem height={247} width={width - 40} movieItem={item} />
+                                  )}
+                                  contentContainerStyle={{
+                                      paddingHorizontal: 20,
+                                  }}
                         />
                     </View>
                 </GestureHandlerRootView>
