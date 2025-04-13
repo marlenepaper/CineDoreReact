@@ -1,35 +1,29 @@
 import {ImageBackground, StyleSheet, View} from "react-native";
-import LogoCompleto from "../../../../assets/icons/logo_completo.svg"
-import Logos from "../../../../assets/icons/logos.svg"
-import {PropsStackNavigation} from "../../interfaces/StackNav";
+import LogoCompleto from "../../../../../assets/icons/logo_completo.svg"
+import Logos from "../../../../../assets/icons/logos.svg"
+import {PropsStackNavigation} from "../../../interfaces/StackNav";
 import {useEffect} from "react";
-import {AppColors} from "../../theme/AppTheme";
-import stylesRegister from "./register/StylesRegister";
+import {AppColors} from "../../../theme/AppTheme";
+import stylesRegister from "../register/StylesRegister";
 import {LinearGradient} from "expo-linear-gradient";
-import ImageSplash from "../../../../assets/images/imagen-splash.svg"
-import {UserLocalRepositoryImpl} from "../../../data/repositories/UserLocalRepository";
+import ImageSplash from "../../../../../assets/images/imagen-splash.svg"
+import {UserLocalRepositoryImpl} from "../../../../data/repositories/UserLocalRepository";
+import {LocalStorage} from "../../../../data/sources/local/LocalStorage";
+import {useUserLocalStorage} from "../../../hooks/useUserLocalStorage";
+import SplashViewModel from "./ViewModel";
 
 function SplashScreen({ navigation }: PropsStackNavigation) {
+    const {user} = SplashViewModel()
+    console.log(user)
+
     useEffect(() => {
-        const checkSession = async () => {
-            try {
-                const userLocal = new UserLocalRepositoryImpl();
-                const user = await userLocal.getUser(); // 👈 usamos tu lógica
-
-                setTimeout(() => {
-                    if (user?.token) {
-                        navigation.replace("TabNavigator");
-                    } else {
-                        navigation.replace("WelcomeScreen");
-                    }
-                }, 2500);
-            } catch (error) {
-                navigation.replace("WelcomeScreen");
-            }
-        };
-
-        checkSession();
-    }, []);
+       setTimeout(() => {
+           if (user && user?.token) {
+               navigation.replace("TabNavigator");
+           } else {
+               navigation.replace("WelcomeScreen");
+           }}, 2500);
+    }, [user?.token]);
     return(
         <View style={stylesSplash.bgContainer}>
             <LinearGradient colors={[AppColors.bg_input_dark, AppColors.bg_input_dark, AppColors.prueba_claro, AppColors.prueba_claro]}

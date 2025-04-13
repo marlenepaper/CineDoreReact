@@ -5,9 +5,9 @@ import { ActivityIndicator } from "react-native";
 import { AppColors } from "./app/presentation/theme/AppTheme";
 
 import LoginScreen from "./app/presentation/views/auth/login/LoginScreen";
-import WelcomeScreen from "./app/presentation/views/auth/WelcomeScreen";
+import WelcomeScreen from "./app/presentation/views/auth/splash/WelcomeScreen";
 import RegisterScreen from "./app/presentation/views/auth/register/RegisterScreen";
-import SplashScreen from "./app/presentation/views/auth/SplashScreen";
+import SplashScreen from "./app/presentation/views/auth/splash/SplashScreen";
 
 import MovieDetailsScreen from "./app/presentation/views/purchase/selectedMovie/MovieDetails";
 import TicketSelectionScreen from "./app/presentation/views/purchase/ticketSelection/TicketSelection";

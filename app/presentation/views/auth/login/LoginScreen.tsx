@@ -26,11 +26,7 @@ function LoginScreen({navigation}:PropsStackNavigation) {
         }
     }
 
-    useEffect(() =>{
-        if (user && user.token){
-            navigation.replace("TabNavigator")
-        }
-    })
+
 
     return(
         <View style={stylesLogin.mainContainer}>

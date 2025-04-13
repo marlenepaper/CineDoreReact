@@ -12,6 +12,7 @@ import { RootStackParamList } from "../../../../../App";
 import { GetPeliculaByIdUseCase } from "../../../../domain/useCases/peliculas/GetPeliculaByIdUseCase";
 import { PeliculaDTO } from "../../../../domain/entities/PeliculaDTO";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {red} from "react-native-reanimated/lib/typescript/Colors";
 
 type TicketSelectionRouteProp = RouteProp<RootStackParamList, "TicketSelectionScreen">;
 type NavigationType = NativeStackNavigationProp<RootStackParamList, "TicketSelectionScreen">;
@@ -25,10 +26,11 @@ function TicketSelectionScreen() {
     const [generalCount, setGeneralCount] = useState(0);
     const [reducedCount, setReducedCount] = useState(0);
     const [freeCount, setFreeCount] = useState(0);
-
+    const [totalTickets, setTotalTickets] = useState(0);
     const precioGeneral = 3;
     const precioReducida = 2;
     const total = generalCount * precioGeneral + reducedCount * precioReducida;
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +40,10 @@ function TicketSelectionScreen() {
         fetchData();
     }, [peliculaId]);
 
+    useEffect(() => {
+        const totalNum = generalCount + reducedCount + freeCount;
+        setTotalTickets(Math.max(0, totalNum));
+    }, [generalCount, reducedCount, freeCount]);
     const funcion = pelicula?.funciones.find((f) => f.id === funcionId);
 
     const movie = funcion && pelicula
@@ -85,11 +91,15 @@ function TicketSelectionScreen() {
                         <Text style={styles.ticketTextLeft}>Entrada general</Text>
                         <Text style={styles.ticketText}>3 €</Text>
                         <View style={styles.addTicketContainer}>
-                            <TouchableOpacity onPress={() => setGeneralCount(Math.max(0, generalCount - 1))}>
+                            <TouchableOpacity onPress={() => {
+                                setGeneralCount(Math.max(0, generalCount - 1))
+                            }}>
                                 <Text style={styles.ticketText}>-</Text>
                             </TouchableOpacity>
                             <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{generalCount}</Text>
-                            <TouchableOpacity onPress={() => setGeneralCount(generalCount + 1)}>
+                            <TouchableOpacity onPress={() => {
+                                setGeneralCount(generalCount + 1)
+                            }}>
                                 <Text style={styles.ticketText}>+</Text>
                             </TouchableOpacity>
                         </View>
@@ -100,11 +110,15 @@ function TicketSelectionScreen() {
                             <Text style={styles.ticketTextLeft}>Entrada reducida</Text>
                             <Text style={styles.ticketText}>2 €</Text>
                             <View style={styles.addTicketContainer}>
-                                <TouchableOpacity onPress={() => setReducedCount(Math.max(0, reducedCount - 1))}>
+                                <TouchableOpacity onPress={() => {
+                                    setReducedCount(Math.max(0, reducedCount - 1))
+                                }}>
                                     <Text style={styles.ticketText}>-</Text>
                                 </TouchableOpacity>
                                 <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{reducedCount}</Text>
-                                <TouchableOpacity onPress={() => setReducedCount(reducedCount + 1)}>
+                                <TouchableOpacity onPress={() => {
+                                    setReducedCount(reducedCount + 1)
+                                }}>
                                     <Text style={styles.ticketText}>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -121,11 +135,15 @@ function TicketSelectionScreen() {
                             <Text style={styles.ticketTextLeft}>Entrada gratuita</Text>
                             <Text style={styles.ticketText}>0 €</Text>
                             <View style={styles.addTicketContainer}>
-                                <TouchableOpacity onPress={() => setFreeCount(Math.max(0, freeCount - 1))}>
+                                <TouchableOpacity onPress={() => {
+                                    setFreeCount(Math.max(0, freeCount - 1))
+                                }}>
                                     <Text style={styles.ticketText}>-</Text>
                                 </TouchableOpacity>
                                 <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{freeCount}</Text>
-                                <TouchableOpacity onPress={() => setFreeCount(freeCount + 1)}>
+                                <TouchableOpacity onPress={() => {
+                                    setFreeCount(freeCount + 1)
+                                }}>
                                     <Text style={styles.ticketText}>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -138,7 +156,7 @@ function TicketSelectionScreen() {
                 <View style={styles.totalBtnContainer}>
                     <View style={styles.totalContainer}>
                         <Text style={styles.totalText}>
-                            Total <Text style={styles.ivaText}>(IVA incluido)</Text>
+                            Total <Text style={styles.ivaText}>x {totalTickets}</Text>
                         </Text>
                         <Text style={styles.totalText}>{total.toFixed(2)}€</Text>
                     </View>

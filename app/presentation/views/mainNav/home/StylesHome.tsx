@@ -43,7 +43,7 @@ const stylesHome = StyleSheet.create({
     moviesContainer:{
         flex: 1,
         width: "100%",
-        marginTop:-200,
+        marginTop: 20,
         alignItems: "center",
     }
 

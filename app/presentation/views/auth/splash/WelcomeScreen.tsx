@@ -1,15 +1,15 @@
 import {ImageBackground, StyleSheet, Text, View} from "react-native";
-import Logo from "../../../../assets/icons/logo.svg"
-import {AuthButton} from "../../componentes/auth/AuthButton";
+import Logo from "../../../../../assets/icons/logo.svg"
+import {AuthButton} from "../../../componentes/auth/AuthButton";
 import {LinearGradient} from "expo-linear-gradient";
-import {AppColors, AppFonts} from "../../theme/AppTheme";
-import {PropsStackNavigation} from "../../interfaces/StackNav";
-import {AuthButtonUnfilled} from "../../componentes/auth/AuthButtonUnfilled";
+import {AppColors, AppFonts} from "../../../theme/AppTheme";
+import {PropsStackNavigation} from "../../../interfaces/StackNav";
+import {AuthButtonUnfilled} from "../../../componentes/auth/AuthButtonUnfilled";
 
 function WelcomeScreen({navigation}:PropsStackNavigation) {
     return(
         <View style={stylesWelcome.mainContainer}>
-                <ImageBackground source={require("../../../../assets/images/bg_welcome.png")}
+                <ImageBackground source={require("../../../../../assets/images/bg_welcome.png")}
                 style={stylesWelcome.image}
                 resizeMode={"cover"}/>
             <LinearGradient colors={["transparent", AppColors.tertiary_dark, AppColors.tertiary_dark]}
