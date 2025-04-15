@@ -1,4 +1,4 @@
 export interface TicketEntradaDTO {
-    codigoQr: string;
-    estadoId: number;
+    tipoEntradaId: number,
+    cantidad: number,
 }

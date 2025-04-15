@@ -3,7 +3,7 @@ import {FuncionDTO} from "./FuncionDTO";
 import {UserDTO} from "./UsuarioDTO";
 
 export interface CompraDTO {
-    compraId: number;
+    compraId?: number;
     usuarioId: number;
     funcionId: number;
     totalPago: number;
@@ -11,7 +11,7 @@ export interface CompraDTO {
 }
 
 export interface Compra{
-    id: number;
+    id?: number;
     usuario: UserDTO;
     funcion: FuncionDTO;
     fechaCompra: string;

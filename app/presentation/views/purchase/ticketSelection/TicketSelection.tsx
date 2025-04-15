@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import {ImageBackground, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import BackArrow from "../../../../../assets/icons/chevron-left.svg";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppColors } from "../../../theme/AppTheme";
@@ -13,6 +13,10 @@ import { GetPeliculaByIdUseCase } from "../../../../domain/useCases/peliculas/Ge
 import { PeliculaDTO } from "../../../../domain/entities/PeliculaDTO";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {red} from "react-native-reanimated/lib/typescript/Colors";
+import {CompraDTO} from "../../../../domain/entities/CompraDTO";
+import {useUserLocalStorage} from "../../../hooks/useUserLocalStorage";
+import {TicketEntradaDTO} from "../../../../domain/entities/TicketEntradaDTO";
+import TicketSelectionViewModel from "./ViewModel";
 
 type TicketSelectionRouteProp = RouteProp<RootStackParamList, "TicketSelectionScreen">;
 type NavigationType = NativeStackNavigationProp<RootStackParamList, "TicketSelectionScreen">;
@@ -21,7 +25,8 @@ function TicketSelectionScreen() {
     const route = useRoute<TicketSelectionRouteProp>();
     const navigation = useNavigation<NavigationType>();
     const { funcionId, peliculaId } = route.params;
-
+    const {user} = useUserLocalStorage()
+    const {makeCompra} = TicketSelectionViewModel()
     const [pelicula, setPelicula] = useState<PeliculaDTO | null>(null);
     const [generalCount, setGeneralCount] = useState(0);
     const [reducedCount, setReducedCount] = useState(0);
@@ -58,6 +63,39 @@ function TicketSelectionScreen() {
         }
         : null;
 
+    const handleBuyTicket = async () =>{
+        if (user?.id && funcionId){
+            const posiblesTickets = [
+                { tipoEntradaId: 1, cantidad: generalCount },
+                { tipoEntradaId: 2, cantidad: reducedCount },
+                { tipoEntradaId: 3, cantidad: freeCount }
+            ];
+
+            const listaTickets = posiblesTickets.filter(ticket => ticket.cantidad > 0);
+            console.log(listaTickets)
+            if (listaTickets.length > 0) {
+                const compra: CompraDTO = {
+                    usuarioId: user.id,
+                    funcionId: funcionId,
+                    totalPago: total,
+                    tickets: listaTickets
+                }
+                const response = await makeCompra(compra)
+                if (response.id && pelicula && funcion){
+                    ToastAndroid.show("Compra realizada", ToastAndroid.SHORT)
+                    navigation.navigate("PurchasedTicketScreen", {
+                        pelicula: pelicula,
+                        funcion: funcion,
+                        totalEntradas: totalTickets,
+                        compra: response
+                    });
+                }
+
+            }
+        }
+
+
+    }
     return (
         <View style={styles.mainContainer}>
             <ImageBackground
@@ -163,15 +201,7 @@ function TicketSelectionScreen() {
 
                     <AuthButton
                         textButton={"Comprar"}
-                        onPressFromInterface={() => {
-                            if (pelicula && funcion) {
-                                navigation.navigate("PurchasedTicketScreen", {
-                                    pelicula,
-                                    funcion,
-                                    totalEntradas: generalCount + reducedCount + freeCount,
-                                });
-                            }
-                        }}
+                        onPressFromInterface={() => handleBuyTicket()}
                     />
                     <AuthButtonUnfilled textButton={"Cancelar"} onPressFromInterface={() => navigation.goBack()} />
                 </View>

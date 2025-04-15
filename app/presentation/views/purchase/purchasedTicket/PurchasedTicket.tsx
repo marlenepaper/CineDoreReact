@@ -15,7 +15,7 @@ type NavigationType = NativeStackNavigationProp<RootStackParamList>;
 function PurchasedTicketScreen() {
     const route = useRoute<PurchasedRouteProp>();
     const navigation = useNavigation<NavigationType>();
-    const { pelicula, funcion, totalEntradas } = route.params;
+    const { pelicula, funcion, totalEntradas, compra} = route.params;
 
     return (
         <View style={stylesPurchasedTicket.mainContainer}>
