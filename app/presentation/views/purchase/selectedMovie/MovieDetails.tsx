@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, TouchableOpacity, View, Text } from "react-native";
+import {ImageBackground, TouchableOpacity, View, Text, Pressable} from "react-native";
 import { AppColors } from "../../../theme/AppTheme";
 import { LinearGradient } from "expo-linear-gradient";
 import BackArrow from "../../../../../assets/icons/chevron-left.svg";
@@ -51,10 +51,13 @@ function MovieDetailsScreen() {
 
 
             <View style={stylesMovieDetails.backContainer}>
-                <TouchableOpacity style={stylesMovieDetails.backTouchable} onPress={() => navigation.goBack()}>
+                <Pressable style={stylesMovieDetails.backTouchable} onPress={() => {
+                    navigation.goBack()
+                    console.log("presionado")
+                }}>
                     <BackArrow />
                     <Text style={stylesMovieDetails.backText}>Atrás</Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
 
             <LinearGradient

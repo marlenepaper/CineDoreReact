@@ -17,6 +17,7 @@ const stylesTicketSelection = StyleSheet.create({
         position: "absolute",
         top: 35,
         left: 21,
+        zIndex: 999
     },
     backTouchable:{
         display: "flex",
