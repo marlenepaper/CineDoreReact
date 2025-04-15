@@ -45,6 +45,7 @@ const stylesHome = StyleSheet.create({
         width: "100%",
         marginTop: 20,
         alignItems: "center",
+        marginBottom: 70
     }
 
 });

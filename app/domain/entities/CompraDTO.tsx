@@ -10,11 +10,14 @@ export interface CompraDTO {
     tickets: TicketEntradaDTO[];
 }
 
-export interface Compra{
+export interface CompraResponseDTO {
     id?: number;
-    usuario: UserDTO;
     funcion: FuncionDTO;
     fechaCompra: string;
     totalPago: number;
-    tickets: TicketEntradaDTO[];
+    ticket: {
+        id?: number,
+        codigoQr: string,
+        detalles: TicketEntradaDTO[]
+    }
 }

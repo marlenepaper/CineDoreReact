@@ -110,6 +110,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                 <View style={stylesHome.moviesContainer}>
                     <FlatList
                         data={pelis}
+                        showsVerticalScrollIndicator={false}
                         keyExtractor={(item) => item.id.toString()}
                         initialNumToRender={6}
                         windowSize={6}

@@ -41,6 +41,7 @@ function PurchasedTicketScreen() {
                     pelicula={pelicula}
                     funcion={funcion}
                     totalEntradas={totalEntradas}
+                    codigoQr={compra.ticket.codigoQr}
                 />
             </View>
             <View style={stylesPurchasedTicket.btnContainer}>

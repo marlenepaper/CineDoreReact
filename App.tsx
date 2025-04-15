@@ -20,7 +20,7 @@ import HomeScreen from "./app/presentation/views/mainNav/home/Home";
 import { TabNavigator } from "./app/presentation/navigation/TabNavigator";
 import { PeliculaDTO } from "./app/domain/entities/PeliculaDTO";
 import { FuncionDTO } from "./app/domain/entities/FuncionDTO";
-import {Compra} from "./app/domain/entities/CompraDTO";
+import {CompraResponseDTO} from "./app/domain/entities/CompraDTO";
 
 
 export type RootStackParamList = {
@@ -38,7 +38,7 @@ export type RootStackParamList = {
         pelicula: PeliculaDTO;
         funcion: FuncionDTO;
         totalEntradas: number;
-        compra: Compra
+        compra: CompraResponseDTO
     };
     HomeScreen: undefined;
 };

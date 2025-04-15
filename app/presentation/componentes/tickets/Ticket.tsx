@@ -3,14 +3,16 @@ import MovieBox from "../movies/MovieBox";
 import { AppColors, AppFonts } from "../../theme/AppTheme";
 import { PeliculaDTO } from "../../../domain/entities/PeliculaDTO";
 import { FuncionDTO } from "../../../domain/entities/FuncionDTO";
+import QRCode from "react-native-qrcode-svg";
 
 interface Props {
     pelicula: PeliculaDTO;
     funcion: FuncionDTO;
     totalEntradas: number;
+    codigoQr: string
 }
 
-const Ticket = ({ pelicula, funcion, totalEntradas }: Props) => {
+const Ticket = ({ pelicula, funcion, totalEntradas, codigoQr }: Props) => {
     const movie = {
         age: parseInt(pelicula.clasificacion),
         name: pelicula.nombre,
@@ -29,11 +31,11 @@ const Ticket = ({ pelicula, funcion, totalEntradas }: Props) => {
                 style={styles.ticketContainer}
             >
                 <View style={styles.qrContainer}>
-                    <Image source={require("../../../../assets/images/qr.png")} />
+                    <QRCode value={codigoQr} size={225}/>
                 </View>
 
                 <View style={styles.amountContainer}>
-                    <Text style={styles.amountText}>x{totalEntradas} entradas</Text>
+                    <Text style={styles.amountText}>x{totalEntradas} {totalEntradas === 1 ? 'entrada' : 'entradas'}</Text>
                 </View>
 
                 <View style={styles.movieBoxContainer}>
@@ -61,6 +63,12 @@ const styles = StyleSheet.create({
     },
     qrContainer: {
         paddingTop: 60,
+        marginBottom: 30,
+        width: 300,
+        height: 300,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
     amountContainer: {
         display: "flex",
