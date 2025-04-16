@@ -1,5 +1,5 @@
 export interface FuncionDTO {
-    id: number;
+    id?: number;
     fechaHora: string;
     sala: string;
 }

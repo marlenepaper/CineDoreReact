@@ -3,7 +3,6 @@ import { Dimensions, FlatList, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppColors } from "../../../theme/AppTheme";
 import stylesRegister from "../../auth/register/StylesRegister";
-import Carousel from "react-native-reanimated-carousel";
 import LogoCinedore from "../../../../../assets/icons/logo_completo.svg";
 import LogoMinisterio from "../../../../../assets/icons/logo-ministerioCultura.svg";
 import LogoFilmoteca from "../../../../../assets/icons/logo-filmoteca.svg";
@@ -48,7 +47,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
 
     const renderItem = useCallback(
         ({ item }: { item: PeliculaDTO }) => (
-            <MovieItem id={item.id} imagenPoster={item.imagenPoster} navigation={navigation} />
+            <MovieItem id={item.id!} imagenPoster={item.imagenPoster} navigation={navigation} />
         ),
         [navigation]
     );
@@ -99,9 +98,6 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                                   renderItem={({ item }) => (
                                       <CarouselItem height={247} width={width - 40} movieItem={item} />
                                   )}
-                                  contentContainerStyle={{
-                                      paddingHorizontal: 20,
-                                  }}
                         />
                     </View>
                 </GestureHandlerRootView>
@@ -111,7 +107,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                     <FlatList
                         data={pelis}
                         showsVerticalScrollIndicator={false}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item) => item.id!.toString()}
                         initialNumToRender={6}
                         windowSize={6}
                         numColumns={2}

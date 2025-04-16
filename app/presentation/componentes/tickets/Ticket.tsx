@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     qrContainer: {
         paddingTop: 60,
-        marginBottom: 30,
+        marginBottom: 35,
         width: 300,
         height: 300,
         display: "flex",

@@ -8,5 +8,6 @@ export interface TicketDisplayDTO {
     clasificacion: string;
     lenguaje: string;
     duracion: number;
+    sala: string;
     cantidadTickets: number;
 }
