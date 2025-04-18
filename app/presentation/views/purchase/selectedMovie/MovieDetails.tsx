@@ -141,16 +141,24 @@ function MovieDetailsScreen() {
                             </View>
                         ) : (
                             <>
+                                {console.log("FORMATO:", movie.formato, "COLOR:", movie.color)}
+
                                 <Text style={{ ...stylesMovieDetails.formatText, marginTop: 25 }}>Formato:</Text>
                                 <View style={stylesMovieDetails.formatContainer}>
-                                    <Text style={stylesMovieDetails.movieProjection}>{movie.formato ?? ""}</Text>
-                                    <Text style={stylesMovieDetails.movieColor}>{movie.color ?? ""}</Text>
+                                    <View style={stylesMovieDetails.formatBoxLeft}>
+                                        <Text style={stylesMovieDetails.movieProjection}>{movie.formato || "—"}</Text>
+                                    </View>
+                                    <View style={stylesMovieDetails.formatBoxRight}>
+                                        <Text style={stylesMovieDetails.movieColor}>{movie.color || "—"}</Text>
+                                    </View>
                                 </View>
+
                                 <Text style={{ ...stylesMovieDetails.formatText, marginTop: 18 }}>
                                     Información de la película
                                 </Text>
                                 <Text style={stylesMovieDetails.infoText}>{movie.sinopsis ?? ""}</Text>
                             </>
+
                         )}
                     </View>
                 </View>

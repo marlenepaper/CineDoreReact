@@ -107,33 +107,47 @@ const stylesMovieDetails = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         borderColor: AppColors.border_light,
-        borderWidth: 1, // Separar los elementos a la izquierda y derecha
+        borderWidth: 1,
+        minHeight: 30,
     },
-    movieColor:{
+    formatBoxLeft: {
+        flex: 1,
+        justifyContent: "center",
+
+        marginHorizontal: 12,
+    },
+
+    formatBoxRight: {
+        flex: 1,
+        justifyContent: "center",
+        borderLeftWidth: 1,
+        borderColor: AppColors.border_light,
+        minHeight: 30,
+        alignItems: "center",
+        maxWidth:65
+
+    },
+
+    movieColor: {
         fontSize: 14.2,
         fontFamily: AppFonts.regular,
         color: AppColors.white,
-        paddingVertical:6,
-        borderLeftWidth:1,
-        borderColor: AppColors.border_light,
-        paddingHorizontal: 25
     },
-    movieProjection:{
+
+    movieProjection: {
         fontSize: 14.2,
         fontFamily: AppFonts.regular,
         color: AppColors.white,
-        paddingVertical:6,
-        marginTop:0,
-        paddingLeft: 3
     },
+
     infoText:{
         fontSize: 14.2,
         fontFamily: AppFonts.regular,
         color: AppColors.white,
         marginTop:8
-    },
-
+    }
 })
 
 export default stylesMovieDetails
