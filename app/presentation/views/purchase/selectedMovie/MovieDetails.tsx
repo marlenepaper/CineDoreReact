@@ -113,7 +113,7 @@ function MovieDetailsScreen() {
                     <View style={stylesMovieDetails.movieDetailsAll}>
                         <MovieData
                             movie={{
-                                age: parseInt(movie.clasificacion ?? "0"),
+                                age: movie.clasificacion ??"",
                                 name: movie.nombre ?? "",
                                 duration: `${movie.duracion ?? 0} min`,
                                 year: movie.anio?.toString() ?? "",

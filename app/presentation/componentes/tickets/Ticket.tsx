@@ -14,7 +14,7 @@ interface Props {
 
 const Ticket = ({ pelicula, funcion, totalEntradas, codigoQr }: Props) => {
     const movie = {
-        age: parseInt(pelicula.clasificacion),
+        age: pelicula.clasificacion ?? "",
         name: pelicula.nombre,
         duration: `${pelicula.duracion} min`,
         version: pelicula.lenguaje,

@@ -1,5 +1,5 @@
 export interface MovieBoxInterface{
-    age: number,
+    age: string,
     name: string,
     duration: string,
     version: string,
@@ -9,7 +9,7 @@ export interface MovieBoxInterface{
 }
 
 export interface MovieDataInterface{
-    age: number,
+    age: string,
     name: string,
     category: string,
     year: string,

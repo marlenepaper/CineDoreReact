@@ -54,7 +54,7 @@ function TicketSelectionScreen() {
 
     const movie = funcion && pelicula
         ? {
-            age: parseInt(pelicula.clasificacion ?? "0"),
+            age: pelicula.clasificacion ?? "",
             name: pelicula.nombre ?? "",
             duration: `${pelicula.duracion ?? 0} min`,
             version: pelicula.lenguaje ?? "",

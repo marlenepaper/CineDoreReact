@@ -8,7 +8,7 @@ export interface PeliculaDTO {
     sinopsis?: string;
     imagenPoster: string;
     categoria?: string;
-    clasificacion: string;
+    clasificacion?: string;
     formato?: string;
     lenguaje: string;
     color?: string;
