@@ -61,8 +61,9 @@ const stylesMovieData= StyleSheet.create({
     },
     ageText:{
         color: AppColors.white,
-        fontSize: 16,
+        fontSize: 12,
         fontFamily: AppFonts.bold,
+
     },
     filmNameText:{
         color: AppColors.white,
@@ -101,5 +102,7 @@ const stylesMovieData= StyleSheet.create({
         fontFamily: AppFonts.bold,
         borderWidth: 1,
         borderColor: AppColors.white,
+        paddingHorizontal:3,
+
     }
 })

@@ -34,6 +34,7 @@ const stylesMovieDetails = StyleSheet.create({
         width: "100%",
         height: "100%",
         bottom: 0,
+
     },
     infoContainer:{
         position: "absolute",
@@ -41,6 +42,7 @@ const stylesMovieDetails = StyleSheet.create({
         bottom: "30%",
         display: "flex",
         alignSelf: "center",
+
     },
     createAccountButtonContainer:{
         backgroundColor: AppColors.tertiary_dark, //cambiar
@@ -49,18 +51,21 @@ const stylesMovieDetails = StyleSheet.create({
         paddingHorizontal: 30,
         alignItems: "center",
         justifyContent: "center",
+
     },
     createAccountText:{
         color: AppColors.white,
         fontSize: 16,
         textAlign: 'center',
         fontFamily: AppFonts.bold,
+
     },
     createAccountLinearGradient:{
         padding: 1,
         borderRadius: 10,
         marginTop: 16,
         height: 55,
+
     },
     tabContainer:{
         backgroundColor: AppColors.tertiary_dark,
@@ -68,12 +73,14 @@ const stylesMovieDetails = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         borderRadius: 10,
+
     },
     eachTab:{
         width: "50%",
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
+
     },
     tabContainerChosen: {
         width: "48%",
@@ -88,10 +95,12 @@ const stylesMovieDetails = StyleSheet.create({
         paddingVertical: 10,
         color: AppColors.white,
         fontFamily: AppFonts.bold,
+
     },
     movieDetailsAll:{
         display: "flex",
         flexDirection: "column",
+
     },
     scheduleContainer:{
         display: "flex",
@@ -102,6 +111,8 @@ const stylesMovieDetails = StyleSheet.create({
         color: AppColors.white,
         fontSize: 16,
         fontFamily: AppFonts.bold,
+        marginBottom:5
+
     },
     formatContainer:{
         flex: 1,
@@ -111,6 +122,7 @@ const stylesMovieDetails = StyleSheet.create({
         borderColor: AppColors.border_light,
         borderWidth: 1,
         minHeight: 30,
+
     },
     formatBoxLeft: {
         flex: 1,
@@ -134,12 +146,14 @@ const stylesMovieDetails = StyleSheet.create({
         fontSize: 14.2,
         fontFamily: AppFonts.regular,
         color: AppColors.white,
+
     },
 
     movieProjection: {
         fontSize: 14.2,
         fontFamily: AppFonts.regular,
         color: AppColors.white,
+
     },
 
     infoText:{
@@ -147,6 +161,7 @@ const stylesMovieDetails = StyleSheet.create({
         fontFamily: AppFonts.regular,
         color: AppColors.white,
         marginTop:8
+
     }
 })
 
