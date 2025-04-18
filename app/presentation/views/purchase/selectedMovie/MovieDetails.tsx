@@ -79,10 +79,26 @@ function MovieDetailsScreen() {
                     <View style={stylesMovieDetails.tabContainer}>
                         {["Horarios", "Sinopsis"].map((tab, index) => {
                             const isActive = (chosen && index === 0) || (!chosen && index === 1);
-                            return (
+
+                            return isActive ? (
+                                <LinearGradient
+                                    key={tab}
+                                    colors={[AppColors.secondary, AppColors.secondary_dark]}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={stylesMovieDetails.tabContainerChosen}
+                                >
+                                    <TouchableOpacity
+                                        style={stylesMovieDetails.eachTab} // para centrar contenido dentro del gradiente
+                                        onPress={() => setChosen(index === 0)}
+                                    >
+                                        <Text style={stylesMovieDetails.tabText}>{tab}</Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
+                            ) : (
                                 <TouchableOpacity
                                     key={tab}
-                                    style={isActive ? stylesMovieDetails.tabContainerChosen : stylesMovieDetails.eachTab}
+                                    style={stylesMovieDetails.eachTab}
                                     onPress={() => setChosen(index === 0)}
                                 >
                                     <Text style={stylesMovieDetails.tabText}>{tab}</Text>
@@ -90,6 +106,7 @@ function MovieDetailsScreen() {
                             );
                         })}
                     </View>
+
                 </LinearGradient>
 
                 <View style={{ position: "relative", height: 200 }}>

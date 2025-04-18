@@ -132,7 +132,8 @@ const stylesMovieDetails = StyleSheet.create({
         fontFamily: AppFonts.regular,
         color: AppColors.white,
         marginTop:8
-    }
+    },
+
 })
 
 export default stylesMovieDetails
