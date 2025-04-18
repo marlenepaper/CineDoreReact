@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {ImageBackground, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import { ImageBackground, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import BackArrow from "../../../../../assets/icons/chevron-left.svg";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppColors } from "../../../theme/AppTheme";
@@ -12,10 +12,8 @@ import { RootStackParamList } from "../../../../../App";
 import { GetPeliculaByIdUseCase } from "../../../../domain/useCases/peliculas/GetPeliculaByIdUseCase";
 import { PeliculaDTO } from "../../../../domain/entities/PeliculaDTO";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {red} from "react-native-reanimated/lib/typescript/Colors";
-import {CompraDTO} from "../../../../domain/entities/CompraDTO";
-import {useUserLocalStorage} from "../../../hooks/useUserLocalStorage";
-import {TicketEntradaDTO} from "../../../../domain/entities/TicketEntradaDTO";
+import { CompraDTO } from "../../../../domain/entities/CompraDTO";
+import { useUserLocalStorage } from "../../../hooks/useUserLocalStorage";
 import TicketSelectionViewModel from "./ViewModel";
 
 type TicketSelectionRouteProp = RouteProp<RootStackParamList, "TicketSelectionScreen">;
@@ -25,17 +23,19 @@ function TicketSelectionScreen() {
     const route = useRoute<TicketSelectionRouteProp>();
     const navigation = useNavigation<NavigationType>();
     const { funcionId, peliculaId } = route.params;
-    const {user} = useUserLocalStorage()
-    const {makeCompra} = TicketSelectionViewModel()
+
+    const { user } = useUserLocalStorage();
+    const { makeCompra } = TicketSelectionViewModel();
+
     const [pelicula, setPelicula] = useState<PeliculaDTO | null>(null);
     const [generalCount, setGeneralCount] = useState(0);
     const [reducedCount, setReducedCount] = useState(0);
     const [freeCount, setFreeCount] = useState(0);
     const [totalTickets, setTotalTickets] = useState(0);
+
     const precioGeneral = 3;
     const precioReducida = 2;
     const total = generalCount * precioGeneral + reducedCount * precioReducida;
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,40 +49,42 @@ function TicketSelectionScreen() {
         const totalNum = generalCount + reducedCount + freeCount;
         setTotalTickets(Math.max(0, totalNum));
     }, [generalCount, reducedCount, freeCount]);
-    const funcion = pelicula?.funciones.find((f) => f.id === funcionId);
+
+    const funcion = pelicula?.funciones?.find((f) => f.id === funcionId);
 
     const movie = funcion && pelicula
         ? {
-            age: parseInt(pelicula.clasificacion),
-            name: pelicula.nombre,
-            duration: `${pelicula.duracion} min`,
-            version: pelicula.lenguaje,
-            date: funcion.fechaHora.split("T")[0],
-            time: funcion.fechaHora.split("T")[1].slice(0, 5),
-            room: funcion.sala,
+            age: parseInt(pelicula.clasificacion ?? "0"),
+            name: pelicula.nombre ?? "",
+            duration: `${pelicula.duracion ?? 0} min`,
+            version: pelicula.lenguaje ?? "",
+            date: funcion.fechaHora?.split("T")[0] ?? "",
+            time: funcion.fechaHora?.split("T")[1]?.slice(0, 5) ?? "",
+            room: funcion.sala ?? "",
         }
         : null;
 
-    const handleBuyTicket = async () =>{
-        if (user?.id && funcionId){
+    const handleBuyTicket = async () => {
+        if (user?.id && funcionId) {
             const posiblesTickets = [
                 { tipoEntradaId: 1, cantidad: generalCount },
                 { tipoEntradaId: 2, cantidad: reducedCount },
-                { tipoEntradaId: 3, cantidad: freeCount }
+                { tipoEntradaId: 3, cantidad: freeCount },
             ];
 
             const listaTickets = posiblesTickets.filter(ticket => ticket.cantidad > 0);
-            console.log(listaTickets)
+
             if (listaTickets.length > 0) {
                 const compra: CompraDTO = {
                     usuarioId: user.id,
                     funcionId: funcionId,
                     totalPago: total,
                     tickets: listaTickets
-                }
-                const response = await makeCompra(compra)
-                if (response.id && pelicula && funcion){
-                    ToastAndroid.show("Compra realizada", ToastAndroid.SHORT)
+                };
+
+                const response = await makeCompra(compra);
+                if (response.id && pelicula && funcion) {
+                    ToastAndroid.show("Compra realizada", ToastAndroid.SHORT);
                     navigation.navigate("PurchasedTicketScreen", {
                         pelicula: pelicula,
                         funcion: funcion,
@@ -90,12 +92,10 @@ function TicketSelectionScreen() {
                         compra: response
                     });
                 }
-
             }
         }
+    };
 
-
-    }
     return (
         <View style={styles.mainContainer}>
             <ImageBackground
@@ -114,6 +114,7 @@ function TicketSelectionScreen() {
                     <Text style={styles.backText}>Atrás</Text>
                 </TouchableOpacity>
             </View>
+
             <LinearGradient
                 colors={["transparent", AppColors.tertiary_dark, AppColors.tertiary_dark]}
                 start={{ x: 0, y: 0 }}
@@ -125,38 +126,32 @@ function TicketSelectionScreen() {
                 {movie && <MovieBox movie={movie} color={AppColors.white} />}
 
                 <View style={styles.pricesContainer}>
+                    {/* Entrada General */}
                     <View style={styles.ticketGeneralContainer}>
                         <Text style={styles.ticketTextLeft}>Entrada general</Text>
                         <Text style={styles.ticketText}>3 €</Text>
                         <View style={styles.addTicketContainer}>
-                            <TouchableOpacity onPress={() => {
-                                setGeneralCount(Math.max(0, generalCount - 1))
-                            }}>
+                            <TouchableOpacity onPress={() => setGeneralCount(Math.max(0, generalCount - 1))}>
                                 <Text style={styles.ticketText}>-</Text>
                             </TouchableOpacity>
                             <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{generalCount}</Text>
-                            <TouchableOpacity onPress={() => {
-                                setGeneralCount(generalCount + 1)
-                            }}>
+                            <TouchableOpacity onPress={() => setGeneralCount(generalCount + 1)}>
                                 <Text style={styles.ticketText}>+</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
 
+                    {/* Entrada Reducida */}
                     <View style={styles.ticketReducidoContainer}>
                         <View style={styles.ticketGeneralContainer}>
                             <Text style={styles.ticketTextLeft}>Entrada reducida</Text>
                             <Text style={styles.ticketText}>2 €</Text>
                             <View style={styles.addTicketContainer}>
-                                <TouchableOpacity onPress={() => {
-                                    setReducedCount(Math.max(0, reducedCount - 1))
-                                }}>
+                                <TouchableOpacity onPress={() => setReducedCount(Math.max(0, reducedCount - 1))}>
                                     <Text style={styles.ticketText}>-</Text>
                                 </TouchableOpacity>
                                 <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{reducedCount}</Text>
-                                <TouchableOpacity onPress={() => {
-                                    setReducedCount(reducedCount + 1)
-                                }}>
+                                <TouchableOpacity onPress={() => setReducedCount(reducedCount + 1)}>
                                     <Text style={styles.ticketText}>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -168,20 +163,17 @@ function TicketSelectionScreen() {
                         <Text style={styles.textTicketCasos}>En situación de desempleo</Text>
                     </View>
 
+                    {/* Entrada Gratuita */}
                     <View style={styles.ticketReducidoContainer}>
                         <View style={styles.ticketGeneralContainer}>
                             <Text style={styles.ticketTextLeft}>Entrada gratuita</Text>
                             <Text style={styles.ticketText}>0 €</Text>
                             <View style={styles.addTicketContainer}>
-                                <TouchableOpacity onPress={() => {
-                                    setFreeCount(Math.max(0, freeCount - 1))
-                                }}>
+                                <TouchableOpacity onPress={() => setFreeCount(Math.max(0, freeCount - 1))}>
                                     <Text style={styles.ticketText}>-</Text>
                                 </TouchableOpacity>
                                 <Text style={{ ...styles.ticketText, paddingHorizontal: 18 }}>{freeCount}</Text>
-                                <TouchableOpacity onPress={() => {
-                                    setFreeCount(freeCount + 1)
-                                }}>
+                                <TouchableOpacity onPress={() => setFreeCount(freeCount + 1)}>
                                     <Text style={styles.ticketText}>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -201,9 +193,12 @@ function TicketSelectionScreen() {
 
                     <AuthButton
                         textButton={"Comprar"}
-                        onPressFromInterface={() => handleBuyTicket()}
+                        onPressFromInterface={handleBuyTicket}
                     />
-                    <AuthButtonUnfilled textButton={"Cancelar"} onPressFromInterface={() => navigation.goBack()} />
+                    <AuthButtonUnfilled
+                        textButton={"Cancelar"}
+                        onPressFromInterface={() => navigation.goBack()}
+                    />
                 </View>
             </View>
         </View>

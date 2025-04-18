@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {ImageBackground, TouchableOpacity, View, Text, Pressable} from "react-native";
+import { ImageBackground, TouchableOpacity, View, Text, Pressable } from "react-native";
 import { AppColors } from "../../../theme/AppTheme";
 import { LinearGradient } from "expo-linear-gradient";
 import BackArrow from "../../../../../assets/icons/chevron-left.svg";
@@ -41,7 +41,7 @@ function MovieDetailsScreen() {
         <View style={stylesMovieDetails.mainContainer}>
             <ImageBackground
                 source={
-                    movie?.imagenPoster
+                    movie.imagenPoster
                         ? { uri: movie.imagenPoster }
                         : require("../../../../../assets/backgrounds/image_error.png")
                 }
@@ -49,12 +49,14 @@ function MovieDetailsScreen() {
                 resizeMode="cover"
             />
 
-
             <View style={stylesMovieDetails.backContainer}>
-                <Pressable style={stylesMovieDetails.backTouchable} onPress={() => {
-                    navigation.goBack()
-                    console.log("presionado")
-                }}>
+                <Pressable
+                    style={stylesMovieDetails.backTouchable}
+                    onPress={() => {
+                        navigation.goBack();
+                        console.log("presionado");
+                    }}
+                >
                     <BackArrow />
                     <Text style={stylesMovieDetails.backText}>Atrás</Text>
                 </Pressable>
@@ -91,57 +93,49 @@ function MovieDetailsScreen() {
                 </LinearGradient>
 
                 <View style={{ position: "relative", height: 200 }}>
-                    {chosen ? (
-                        <View style={stylesMovieDetails.movieDetailsAll}>
-                            <MovieData
-                                movie={{
-                                    age: parseInt(movie.clasificacion),
-                                    name: movie.nombre,
-                                    duration: `${movie.duracion} min`,
-                                    year: movie.anio.toString(),
-                                    category: movie.categoria,
-                                    version: movie.lenguaje,
-                                }}
-                            />
+                    <View style={stylesMovieDetails.movieDetailsAll}>
+                        <MovieData
+                            movie={{
+                                age: parseInt(movie.clasificacion ?? "0"),
+                                name: movie.nombre ?? "",
+                                duration: `${movie.duracion ?? 0} min`,
+                                year: movie.anio?.toString() ?? "",
+                                category: movie.categoria ?? "",
+                                version: movie.lenguaje ?? "",
+                            }}
+                        />
+                        {chosen ? (
                             <View style={stylesMovieDetails.scheduleContainer}>
-                                {movie.funciones.map((funcion) => (
+                                {movie.funciones?.map((funcion) => (
                                     <ScheduleData
                                         key={funcion.id}
                                         date={funcion.fechaHora.split("T")[0]}
-                                        time={funcion.fechaHora.split("T")[1].slice(0, 5)}
-                                        onPressFromInterface={() =>
-                                            navigation.navigate("TicketSelectionScreen", {
-                                                funcionId: funcion.id,
-                                                peliculaId: movie.id,
-                                            })
-                                        }
+                                        time={funcion.fechaHora.split("T")[1]?.slice(0, 5) ?? ""}
+                                        onPressFromInterface={() => {
+                                            if (funcion.id !== undefined && movie.id !== undefined) {
+                                                navigation.navigate("TicketSelectionScreen", {
+                                                    funcionId: funcion.id,
+                                                    peliculaId: movie.id,
+                                                });
+                                            }
+                                        }}
                                     />
                                 ))}
                             </View>
-                        </View>
-                    ) : (
-                        <View style={stylesMovieDetails.movieDetailsAll}>
-                            <MovieData
-                                movie={{
-                                    age: parseInt(movie.clasificacion),
-                                    name: movie.nombre,
-                                    duration: `${movie.duracion} min`,
-                                    year: movie.anio.toString(),
-                                    category: movie.categoria,
-                                    version: movie.lenguaje,
-                                }}
-                            />
-                            <Text style={{ ...stylesMovieDetails.formatText, marginTop: 25 }}>Formato:</Text>
-                            <View style={stylesMovieDetails.formatContainer}>
-                                <Text style={stylesMovieDetails.movieProjection}>{movie.formato}</Text>
-                                <Text style={stylesMovieDetails.movieColor}>{movie.color}</Text>
-                            </View>
-                            <Text style={{ ...stylesMovieDetails.formatText, marginTop: 18 }}>
-                                Información de la película
-                            </Text>
-                            <Text style={stylesMovieDetails.infoText}>{movie.sinopsis}</Text>
-                        </View>
-                    )}
+                        ) : (
+                            <>
+                                <Text style={{ ...stylesMovieDetails.formatText, marginTop: 25 }}>Formato:</Text>
+                                <View style={stylesMovieDetails.formatContainer}>
+                                    <Text style={stylesMovieDetails.movieProjection}>{movie.formato ?? ""}</Text>
+                                    <Text style={stylesMovieDetails.movieColor}>{movie.color ?? ""}</Text>
+                                </View>
+                                <Text style={{ ...stylesMovieDetails.formatText, marginTop: 18 }}>
+                                    Información de la película
+                                </Text>
+                                <Text style={stylesMovieDetails.infoText}>{movie.sinopsis ?? ""}</Text>
+                            </>
+                        )}
+                    </View>
                 </View>
             </View>
         </View>
