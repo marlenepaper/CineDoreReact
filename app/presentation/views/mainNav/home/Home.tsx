@@ -1,3 +1,4 @@
+// src/presentation/views/home/HomeScreen.tsx
 import React, { useCallback, useEffect, useState } from "react";
 import { Dimensions, FlatList, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,7 +15,9 @@ import { MovieItem } from "../../../componentes/home/MovieItem";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../../App";
 
-// use case y entidad
+// Use case y entidad
+import { GetCarruselUseCase } from "../../../../domain/useCases/carrusel/carruselUsecase";
+import { CarruselDTO } from "../../../../domain/entities/CarruselDTO";
 import { GetAllPeliculasUseCase } from "../../../../domain/useCases/peliculas/GetAllPeliculasUse";
 import { PeliculaDTO } from "../../../../domain/entities/PeliculaDTO";
 
@@ -24,27 +27,31 @@ interface PropsStackNavigation extends NativeStackScreenProps<RootStackParamList
 function HomeScreen({ navigation }: PropsStackNavigation) {
     const width = Dimensions.get("window").width;
 
-    // Carrusel (puedes mantener este estático si no viene del back)
-    const carousel = [
-        { image: require("../../../../../assets/backgrounds/image_error.png"), title: "Preston Sturges", description: "La risa endiablada" },
-        { image: require("../../../../../assets/backgrounds/image_error.png"), title: "Constelación Sarah Maldoror", description: "La lucha continua" },
-        { image: require("../../../../../assets/backgrounds/image_error.png"), title: "Centenario Raj Kapoor", description: "Leyenda del cine hindi" },
-        { image: require("../../../../../assets/backgrounds/image_error.png"), title: "José Luis Borau", description: "Un gigante" },
-        { image: require("../../../../../assets/backgrounds/image_error.png"), title: "Ruinas y rutinas", description: "Instantes de cotidianeidad en el diario fílmico" },
-        { image: require("../../../../../assets/backgrounds/image_error.png"), title: "La dama de la antorcha", description: "100 años de Columbia Pictures" },
-    ];
+    // Estado para el carrusel
+    const [carousel, setCarousel] = useState<CarruselDTO[]>([]);
 
     // Estado para las películas reales del back
     const [pelis, setPelis] = useState<PeliculaDTO[]>([]);
 
+    // Obtiene los datos del carrusel desde el backend
     useEffect(() => {
+        const fetchCarruselData = async () => {
+            const result = await GetCarruselUseCase();
+            setCarousel(result);  // Actualiza el estado con los datos del carrusel
+        };
+
+        fetchCarruselData();
+
+        // Fetch para obtener las películas
         const fetchData = async () => {
             const result = await GetAllPeliculasUseCase();
             setPelis(result);
         };
+
         fetchData();
     }, []);
 
+    // Función para renderizar las películas
     const renderItem = useCallback(
         ({ item }: { item: PeliculaDTO }) => (
             <MovieItem id={item.id!} imagenPoster={item.imagenPoster} navigation={navigation} />
@@ -55,12 +62,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
     return (
         <View style={stylesHome.mainContainer}>
             <LinearGradient
-                colors={[
-                    AppColors.bg_input_dark,
-                    AppColors.bg_input_dark,
-                    AppColors.prueba_claro,
-                    AppColors.prueba_claro,
-                ]}
+                colors={[AppColors.bg_input_dark, AppColors.bg_input_dark, AppColors.prueba_claro, AppColors.prueba_claro]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={stylesRegister.mainGradient}
@@ -88,18 +90,26 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
 
                 {/* Carrusel */}
                 <GestureHandlerRootView style={stylesHome.carousel}>
-                    <View>
-                        <FlatList data={carousel}
-                                  horizontal={true} pagingEnabled         // 🔥 Esto hace que se desplace de uno en uno
-                                  snapToAlignment="center"
-                                  decelerationRate="fast"
-                                  showsHorizontalScrollIndicator={false}
-                                  keyExtractor={(item, index) => index.toString()}
-                                  renderItem={({ item }) => (
-                                      <CarouselItem height={247} width={width - 40} movieItem={item} />
-                                  )}
-                        />
-                    </View>
+                    <FlatList
+                        data={carousel}  // Aquí, el 'carousel' contiene los datos del carrusel
+                        horizontal={true}
+                        pagingEnabled
+                        snapToAlignment="center"
+                        decelerationRate="fast"
+                        showsHorizontalScrollIndicator={false}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <CarouselItem
+                                height={247}
+                                width={width - 40}
+                                movieItem={{
+                                    image: item.imagenPoster,
+                                    title: item.titulo,  // Cambié 'titulo' por 'title'
+                                    description: item.subtitulo,  // Cambié 'subtitulo' por 'description'
+                                }}
+                            />
+                        )}
+                    />
                 </GestureHandlerRootView>
 
                 {/* Lista de películas reales */}
