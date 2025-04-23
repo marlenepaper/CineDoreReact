@@ -1,6 +1,6 @@
 // src/presentation/views/home/HomeScreen.tsx
 import React, { useCallback, useEffect, useState } from "react";
-import { Dimensions, FlatList, View } from "react-native";
+import {Dimensions, FlatList, TouchableOpacity, View} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppColors } from "../../../theme/AppTheme";
 import stylesRegister from "../../auth/register/StylesRegister";
@@ -21,19 +21,17 @@ import { CarruselDTO } from "../../../../domain/entities/CarruselDTO";
 import { GetAllPeliculasUseCase } from "../../../../domain/useCases/peliculas/GetAllPeliculasUse";
 import { PeliculaDTO } from "../../../../domain/entities/PeliculaDTO";
 
-// Props para navegación
+
 interface PropsStackNavigation extends NativeStackScreenProps<RootStackParamList, "HomeScreen"> {}
 
 function HomeScreen({ navigation }: PropsStackNavigation) {
     const width = Dimensions.get("window").width;
 
-    // Estado para el carrusel
+
     const [carousel, setCarousel] = useState<CarruselDTO[]>([]);
 
-    // Estado para las películas reales del back
     const [pelis, setPelis] = useState<PeliculaDTO[]>([]);
 
-    // Obtiene los datos del carrusel desde el backend
     useEffect(() => {
         const fetchCarruselData = async () => {
             const result = await GetCarruselUseCase();
@@ -42,7 +40,6 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
 
         fetchCarruselData();
 
-        // Fetch para obtener las películas
         const fetchData = async () => {
             const result = await GetAllPeliculasUseCase();
             setPelis(result);
@@ -51,7 +48,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
         fetchData();
     }, []);
 
-    // Función para renderizar las películas
+
     const renderItem = useCallback(
         ({ item }: { item: PeliculaDTO }) => (
             <MovieItem id={item.id!} imagenPoster={item.imagenPoster} navigation={navigation} />
@@ -74,9 +71,11 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                         <View style={stylesHome.logoCineDoreContainer}>
                             <LogoCinedore style={stylesHome.logoCineDore} width={150} height={40} />
                         </View>
-                        <View style={stylesHome.info}>
-                            <IconoInfo />
-                        </View>
+                        <TouchableOpacity onPress={() => navigation.navigate("TheatreInfoScreen")}>
+                            <View style={stylesHome.info}>
+                                <IconoInfo />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={stylesHome.logosGobierno}>
                         <View style={stylesHome.logoMinisterio}>
@@ -88,7 +87,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                     </View>
                 </View>
 
-                {/* Carrusel */}
+
                 <GestureHandlerRootView style={stylesHome.carousel}>
                     <FlatList
                         data={carousel}  // Aquí, el 'carousel' contiene los datos del carrusel
@@ -112,7 +111,7 @@ function HomeScreen({ navigation }: PropsStackNavigation) {
                     />
                 </GestureHandlerRootView>
 
-                {/* Lista de películas reales */}
+
                 <View style={stylesHome.moviesContainer}>
                     <FlatList
                         data={pelis}

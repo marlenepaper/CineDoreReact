@@ -1,4 +1,3 @@
-// src/domain/useCases/GetCarruselUseCase.ts
 import { CarruselDTO } from "../../entities/CarruselDTO";
 import { CarruselRepositoryImpl } from "../../../data/repositories/CarruselRespository";
 

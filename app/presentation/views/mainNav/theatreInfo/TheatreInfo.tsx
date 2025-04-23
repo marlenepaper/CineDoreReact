@@ -1,34 +1,45 @@
-import {PropsStackNavigation} from "../../../interfaces/StackNav";
-import {ImageBackground, StyleSheet, Text, View} from "react-native";
-import {AppColors, AppFonts} from "../../../theme/AppTheme";
+import React from "react";
+import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { AppColors, AppFonts } from "../../../theme/AppTheme";
 import Logo from "../../../../../assets/icons/logo.svg";
-import stylesRegister from "../../auth/register/StylesRegister";
-import {LinearGradient} from "expo-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
+import BackArrow from "../../../../../assets/icons/chevron-left.svg";
+import {PropsStackNavigation} from "../../../interfaces/StackNav";
+import stylesRegister from "../../auth/register/StylesRegister";  // Asegúrate de tener el ícono de la flecha
 
-
-function TheatreInfoScreen({navigation}: PropsStackNavigation) {
-
+function TheatreInfoScreen({ navigation }: PropsStackNavigation) {
     return (
         <View style={stylesTheatreInfo.mainContainer}>
             <ImageBackground source={require("../../../../../assets/images/bg_cine_transparente.png")}
                              style={stylesTheatreInfo.bgImage}
-                             resizeMode={"cover"}/>
+                             resizeMode={"cover"} />
+
             <LinearGradient
                 colors={[AppColors.bg_input_dark, AppColors.bg_input_dark, AppColors.prueba_claro, AppColors.prueba_claro]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
                 style={stylesRegister.mainGradient}
             />
+
             <View style={stylesTheatreInfo.contentContainer}>
+                {/* Botón de "Atrás" */}
+                <TouchableOpacity
+                    style={stylesTheatreInfo.backButton}
+                    onPress={() => navigation.goBack()}
+                >
+                    <BackArrow />
+                    <Text style={stylesTheatreInfo.backText}>Atrás</Text>
+                </TouchableOpacity>
+
                 <View style={stylesTheatreInfo.headerContainer}>
                     <View style={stylesTheatreInfo.logoContainer}>
-                        <Logo style={stylesTheatreInfo.logo}/>
+                        <Logo style={stylesTheatreInfo.logo} />
                     </View>
                     <Text style={stylesTheatreInfo.headerText}>El cine Doré es la sede de proyecciones de</Text>
                     <Text style={stylesTheatreInfo.headerText}>Filmoteca Española.</Text>
                 </View>
 
-                {/* Horario taquilla */}
+                {/* Resto del contenido */}
                 <View style={stylesTheatreInfo.section}>
                     <View style={stylesTheatreInfo.row}>
                         <Text style={stylesTheatreInfo.sectionTitle}>Horario taquilla</Text>
@@ -41,7 +52,7 @@ function TheatreInfoScreen({navigation}: PropsStackNavigation) {
                 {/* Horario proyecciones */}
                 <View style={stylesTheatreInfo.section}>
                     <View style={stylesTheatreInfo.row}>
-                    <Text style={stylesTheatreInfo.sectionTitle}>Horario proyecciones</Text>
+                        <Text style={stylesTheatreInfo.sectionTitle}>Horario proyecciones</Text>
                     </View>
                     <Text style={stylesTheatreInfo.normalText}>De martes a domingo</Text>
                 </View>
@@ -49,7 +60,7 @@ function TheatreInfoScreen({navigation}: PropsStackNavigation) {
                 {/* Localización */}
                 <View style={stylesTheatreInfo.section}>
                     <View style={stylesTheatreInfo.row}>
-                    <Text style={stylesTheatreInfo.sectionTitle}>Localización</Text>
+                        <Text style={stylesTheatreInfo.sectionTitle}>Localización</Text>
                     </View>
                     <Text style={stylesTheatreInfo.normalText}>Calle Santa Isabel, n.º 3 (28012 Madrid)</Text>
                 </View>
@@ -57,7 +68,7 @@ function TheatreInfoScreen({navigation}: PropsStackNavigation) {
                 {/* Instalaciones */}
                 <View style={stylesTheatreInfo.section}>
                     <View style={stylesTheatreInfo.row}>
-                    <Text style={stylesTheatreInfo.sectionTitle}>Instalaciones</Text>
+                        <Text style={stylesTheatreInfo.sectionTitle}>Instalaciones</Text>
                     </View>
                     <Text style={stylesTheatreInfo.normalText}>• 2 Salas internas + 1 Sala de verano (exterior)</Text>
                     <Text style={stylesTheatreInfo.normalText}>• Cafetería</Text>
@@ -65,7 +76,7 @@ function TheatreInfoScreen({navigation}: PropsStackNavigation) {
                 </View>
             </View>
         </View>
-    )
+    );
 }
 
 const stylesTheatreInfo = StyleSheet.create({
@@ -79,22 +90,33 @@ const stylesTheatreInfo = StyleSheet.create({
         aspectRatio: 12 / 16,
         resizeMode: "contain"
     },
-    contentContainer:{
+    contentContainer: {
         position: "absolute",
         width: "85%",
         height: "100%",
-        paddingTop: 100,
+        paddingTop: 40,
+    },
+    backButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 50,
+    },
+    backText: {
+        fontSize: 20,
+        color: "white",
+        marginLeft: 10
+
     },
     logoContainer: {
         alignItems: "center",
     },
-    logo:{
+    logo: {
         transform: [{ scale: 0.7 }],
     },
-    headerContainer:{
+    headerContainer: {
         marginBottom: 46,
     },
-    headerText:{
+    headerText: {
         fontSize: 16,
         fontWeight: "bold",
         color: "white",
@@ -103,7 +125,6 @@ const stylesTheatreInfo = StyleSheet.create({
     section: {
         marginBottom: 42,
     },
-
     row: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -111,12 +132,11 @@ const stylesTheatreInfo = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "rgba(255, 255, 255, 0.3)",
     },
-
     sectionTitle: {
         fontSize: 16,
         fontWeight: "bold",
         color: "white",
-        marginBottom:4
+        marginBottom: 4
     },
     sectionSubtitle: {
         fontSize: 12,
@@ -129,8 +149,6 @@ const stylesTheatreInfo = StyleSheet.create({
         color: "white",
         marginTop: 12,
     },
-
-
-})
+});
 
 export default TheatreInfoScreen;
